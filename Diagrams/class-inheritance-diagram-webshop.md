@@ -10,11 +10,17 @@ classDiagram
     BasicDoc <|-- HomeDoc
     BasicDoc <|-- AboutDoc
     BasicDoc <|-- FormDoc
+    BasicDoc <|-- ProductDoc
 
     FormDoc <|-- ContactDoc
     FormDoc <|-- LoginDoc
     FormDoc <|-- RegisterDoc
     FormDoc <|-- PasswordDoc
+
+    ProductDoc <|-- WebshopDoc
+    ProductDoc <|-- DetailDoc
+    ProductDoc <|-- Top5Doc
+    ProductDoc <|-- CartDoc
 
     class HtmlDoc{
        +show()
@@ -86,18 +92,21 @@ classDiagram
     }
 
     class Top5Doc{
+        #getTop5Productids()
         #showHead()
         #showHeader()
         #showContent()
     }
 
-    class Detail{
+    class DetailDoc{
+        #getDetailsProduct($productId)
         #showHead()
         #showHeader()
         #showContent()
     }
 
-    class Cart{
+    class CartDoc{
+        #getCartContent()
         #showHead()
         #showHeader()
         #showContent()
