@@ -10,9 +10,17 @@ classDiagram
     BasicDoc <|-- HomeDoc
     BasicDoc <|-- AboutDoc
     BasicDoc <|-- FormDoc
+    BasicDoc <|-- ProductDoc
 
     FormDoc <|-- ContactDoc
     FormDoc <|-- LoginDoc
+    FormDoc <|-- RegisterDoc
+    FormDoc <|-- PasswordDoc
+
+    ProductDoc <|-- WebshopDoc
+    ProductDoc <|-- DetailDoc
+    ProductDoc <|-- Top5Doc
+    ProductDoc <|-- CartDoc
 
     class HtmlDoc{
        +show()
@@ -29,32 +37,99 @@ classDiagram
         #data 
         +__construct(mydata)
         #showHeaderContent()
-        -showTitle()
+        #showTitle()
+        -showTitleStart()
+        #showTitleContent()
+        -showTitleEnd()
         -showCssLinks()
         #showBodyContent()
         #showHeader()
+            -showHeaderStart()
+            #showHeaderContent()
+            -showHeaderEnd()
         -showMenu()
         #showContent()
         -showFooter()
     }
     class HomeDoc{
-        #showHeader()
+        #showTitleContent()
+        #showHeadeContentr()
         #showContent()
     }
     class AboutDoc{
-        #showHeader()
+        #showTitleContent()
+        #showHeaderContent()
         #showContent()
     }
     class FormDoc{
         <<abstract>>
+        #showFormStart()
+        #showFormContent()
+        #showSubmitButton()
+        #showFormEnd()
     }
     class ContactDoc{
-        #showHeader()
+        +__construct()
+        #showTitleContente()
+        #showHeaderContent()
         #showContent()
+        #showFormStart()
+        #showFormContent()
+        
     }
     class LoginDoc{
-        #showHeader()
+        #showTitleContente()
+        #showHeaderContent()
+        #showContent()
+        #showFormStart()
+        #showFormContent()
+    }
+    class RegisterDoc{
+        #showTitleContente()
+        #showHeaderContent()
+        #showContent()
+        #showFormStart()
+        #showFormContent()
+    }
+    class PasswordDoc{
+        #showTitleContent()
+        #showHeaderContent()
+        #showContent()
+        #showFormStart()
+        #showFormContent()
+    }
+
+    class ProductDoc{
+        <<abstract>>
+        +getProducts()
+    }
+
+    class WebshopDoc{
+        #showTitleContent()
+        #showHeaderContent()
         #showContent()
     }
+
+    class Top5Doc{
+        -getTop5Productids()
+        #showTitleContent()
+        #showHeaderContent()
+        #showContent()
+    }
+
+    class DetailDoc{
+        -getDetailsProduct()
+        #showTitleContent()
+        #showHeaderContent()
+        #showContent()
+    }
+
+    class CartDoc{
+        -getCartContent()
+        #showTitleContent()
+        #showHeaderContent()
+        #showContent()
+    }
+
 
 ```
