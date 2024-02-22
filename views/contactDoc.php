@@ -10,17 +10,10 @@ require_once('formDoc.php');
   }
 
   protected function showContent(){
-      $this->formStart();
+      $this->formStart('contact');
       $this->formContent();
       $this->submitButton();
       $this->formEnd();
-  }
-
-
-  protected function formStart(){
-    echo '<form class="contact" method="POST" action="index.php">
-    <input type="hidden" name="page" value="contact" id="page"/>
-    <fieldset class="persoon">';
   }
 
   protected function formContent(){

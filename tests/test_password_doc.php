@@ -1,5 +1,5 @@
 <?php
-include_once "../views/registerDoc.php";
+include_once "../views/passwordDoc.php";
 
 $myData = array();
 $myData['menu'] = array('home' => 'Home', 'about' => 'Over mij', 'contact' => 'Contact', 'webshop' => 'WEBSHOP', 'top' => 'TOP 5');
@@ -8,7 +8,7 @@ $myData['formInputs'] = array('title' => '', 'titleErr' => '', 'name' => '', 'na
                               'postalcode' => '', 'postalcodeErr' => '', 'city' => '', 'cityErr' => '', 'communication' => '', 'communicationErr' => '',
                               'message' => '', 'messageErr' => '', 'password' => '', 'passwordErr' => '', 'repeat' => '', 'repeatErr' => '');
 
-$view = new RegisterDoc($myData);
+$view = new passwordDoc($myData);
 
 $view  -> show();
 

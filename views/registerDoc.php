@@ -10,21 +10,21 @@ class RegisterDoc Extends FormDoc{
  }
 
  protected function showContent(){
-     $this->formStart();
+     $this->formStart('register');
      $this->formContent();
      $this->submitButton();
      $this->formEnd();
  }
 
- protected function formStart(){
+ /*protected function formStart(){
   echo '
   <form class="contact" method="POST" action="index.php">
   <input type="hidden" name="page" value="register" id="page"/>
   <fieldset class="persoon">';
- }
+ } */
 
   protected function formContent(){
-    $formInputs = $this=>getData()['formInputs'];
+    $formInputs = $this->getData()['formInputs'];
     echo '
     <div> 
     <label for="name"> Naam:</label> 
