@@ -38,6 +38,9 @@ classDiagram
         +__construct(mydata)
         #showHeaderContent()
         #showTitle()
+        -showTitleStart()
+        #showTitleContent()
+        -showTitleEnd()
         -showCssLinks()
         #showBodyContent()
         #showHeader()
@@ -49,13 +52,13 @@ classDiagram
         -showFooter()
     }
     class HomeDoc{
-        #showTitle()
-        #showHeader()
+        #showTitleContent()
+        #showHeadeContentr()
         #showContent()
     }
     class AboutDoc{
-        #showTitle()
-        #showHeader()
+        #showTitleContent()
+        #showHeaderContent()
         #showContent()
     }
     class FormDoc{
@@ -63,23 +66,23 @@ classDiagram
         +submitButton()
     }
     class ContactDoc{
-        #showTitle()
-        #showHeader()
+        #showTitlContente()
+        #showHeaderContent()
         #showContent()
     }
     class LoginDoc{
-        #showTitle()
-        #showHeader()
+        #showTitlContente()
+        #showHeaderContent()
         #showContent()
     }
     class RegisterDoc{
-        #showTitle()
-        #showHeader()
+        #showTitlContente()
+        #showHeaderContent()
         #showContent()
     }
     class PasswordDoc{
-        #showTitle()
-        #showHeader()
+        #showTitleContent()
+        #showHeaderContent()
         #showContent()
     }
 
@@ -89,29 +92,29 @@ classDiagram
     }
 
     class WebshopDoc{
-        #showTitle()
-        #showHeader()
+        #showTitleContent()
+        #showHeaderContent()
         #showContent()
     }
 
     class Top5Doc{
         -getTop5Productids()
-        #showTitle()
-        #showHeader()
+        #showTitleContent()
+        #showHeaderContent()
         #showContent()
     }
 
     class DetailDoc{
         -getDetailsProduct($productId)
-        #showTitle()
-        #showHeader()
+        #showTitleContent()
+        #showHeaderContent()
         #showContent()
     }
 
     class CartDoc{
         -getCartContent()
-        #showTitle()
-        #showHeader()
+        #showTitleContent()
+        #showHeaderContent()
         #showContent()
     }
 
