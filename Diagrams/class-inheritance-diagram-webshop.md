@@ -13,6 +13,8 @@ classDiagram
 
     FormDoc <|-- ContactDoc
     FormDoc <|-- LoginDoc
+    FormDoc <|-- RegisterDoc
+    FormDoc <|-- PasswordDoc
 
     class HtmlDoc{
        +show()
@@ -38,23 +40,68 @@ classDiagram
         -showFooter()
     }
     class HomeDoc{
+        #showHead()
         #showHeader()
         #showContent()
     }
     class AboutDoc{
+        #showHead()
         #showHeader()
         #showContent()
     }
     class FormDoc{
         <<abstract>>
+        +submitButton()
     }
     class ContactDoc{
+        #showHead()
         #showHeader()
         #showContent()
     }
     class LoginDoc{
+        #showHead()
         #showHeader()
         #showContent()
     }
+    class RegisterDoc{
+        #showHead()
+        #showHeader()
+        #showContent()
+    }
+    class PasswordDoc{
+        #showHead()
+        #showHeader()
+        #showContent()
+    }
+
+    class ProductDoc{
+        <<abstract>>
+        +getProducts()
+    }
+
+    class WebshopDoc{
+        #showHead()
+        #showHeader()
+        #showContent()
+    }
+
+    class Top5Doc{
+        #showHead()
+        #showHeader()
+        #showContent()
+    }
+
+    class Detail{
+        #showHead()
+        #showHeader()
+        #showContent()
+    }
+
+    class Cart{
+        #showHead()
+        #showHeader()
+        #showContent()
+    }
+
 
 ```
