@@ -107,7 +107,7 @@ classDiagram
     }
 
     class DetailDoc{
-        -getDetailsProduct($productId)
+        -getDetailsProduct()
         #showTitleContent()
         #showHeaderContent()
         #showContent()
