@@ -93,7 +93,6 @@ function showContentContact($formInputs){
     <span class="error">* '.$formInputs['messageErr'].'</span>
   </div>
   <div>
-    <!-- <label class = "hidden" for="submit"> hidden </label> -->
     <input class="submit" type="submit" value="Submit">
   </div>
     </fieldset>
