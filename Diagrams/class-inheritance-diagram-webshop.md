@@ -64,28 +64,38 @@ classDiagram
     class FormDoc{
         <<abstract>>
         #formStart()
+        #formContent()
         #submitButton()
         #formEnd()
     }
     class ContactDoc{
-        #showTitlContente()
+        #showTitleContente()
         #showHeaderContent()
         #showContent()
+        #formStart()
+        #formContent()
+        
     }
     class LoginDoc{
-        #showTitlContente()
+        #showTitleContente()
         #showHeaderContent()
         #showContent()
+        #formStart()
+        #formContent()
     }
     class RegisterDoc{
-        #showTitlContente()
+        #showTitleContente()
         #showHeaderContent()
         #showContent()
+        #formStart()
+        #formContent()
     }
     class PasswordDoc{
         #showTitleContent()
         #showHeaderContent()
         #showContent()
+        #formStart()
+        #formContent()
     }
 
     class ProductDoc{
