@@ -63,8 +63,6 @@ classDiagram
     }
     class FormDoc{
         <<abstract>>
-        #inputs 
-        +__construct(myinputs)
         #formStart()
         #submitButton()
         #formEnd()
