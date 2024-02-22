@@ -69,6 +69,7 @@ classDiagram
         #showFormEnd()
     }
     class ContactDoc{
+        +__construct()
         #showTitleContente()
         #showHeaderContent()
         #showContent()
