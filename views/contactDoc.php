@@ -10,13 +10,13 @@ require_once('formDoc.php');
   }
 
   protected function showContent(){
-      $this->formStart('contact');
-      $this->formContent();
-      $this->submitButton();
-      $this->formEnd();
+    $this->showFormStart('contact');
+    $this->showFormContent();
+    $this->showSubmitButton();
+    $this->showFormEnd();
   }
 
-  protected function formContent(){
+  protected function showFormContent(){
     $formInputs = $this->getData()['formInputs'];
     echo '  <div>
     <label for="title">title:</label> 

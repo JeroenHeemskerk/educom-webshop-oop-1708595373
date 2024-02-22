@@ -1,23 +1,23 @@
 <?php
 require_once('formDoc.php');
 class LoginDoc Extends FormDoc{
- protected function showTitleContent(){
-   echo 'Login page'; 
- }
+  protected function showTitleContent(){
+    echo 'Login page'; 
+  }
 
- protected function showHeaderContent(){
-   echo 'Login'; 
- }
+  protected function showHeaderContent(){
+    echo 'Login'; 
+  }
 
  protected function showContent(){
-     $this->formStart('login');
-     $this->formContent();
-     $this->submitButton();
-     $this->formEnd();
- }
+    $this->showFormStart('login');
+    $this->showFormContent();
+    $this->showSubmitButton();
+    $this->showFormEnd();
+  }
 
  }
-  protected function formContent(){
+  protected function showFormContent(){
     $formInputs = $this->getData()['formInputs'];
     echo '
     <div> 

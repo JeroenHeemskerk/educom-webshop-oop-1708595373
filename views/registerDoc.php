@@ -10,10 +10,10 @@ class RegisterDoc Extends FormDoc{
  }
 
  protected function showContent(){
-     $this->formStart('register');
-     $this->formContent();
-     $this->submitButton();
-     $this->formEnd();
+     $this->showFormStart('register');
+     $this->showFormContent();
+     $this->showSubmitButton();
+     $this->showFormEnd();
  }
 
  /*protected function formStart(){
@@ -23,7 +23,7 @@ class RegisterDoc Extends FormDoc{
   <fieldset class="persoon">';
  } */
 
-  protected function formContent(){
+  protected function showFormContent(){
     $formInputs = $this->getData()['formInputs'];
     echo '
     <div> 

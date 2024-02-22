@@ -10,14 +10,14 @@ class PasswordDoc Extends FormDoc{
  }
 
  protected function showContent(){
-     $this->formStart('password');
-     $this->formContent();
-     $this->submitButton();
-     $this->formEnd();
+    $this->showFormStart('password');
+    $this->showFormContent();
+    $this->showSubmitButton();
+    $this->showFormEnd();
  }
 
 
-  protected function formContent(){
+  protected function showFormContent(){
     $formInputs = $this->getData()['formInputs'];
     echo '
     <div> 
