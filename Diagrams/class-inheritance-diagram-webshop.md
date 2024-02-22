@@ -37,7 +37,7 @@ classDiagram
         #data 
         +__construct(mydata)
         #showHeaderContent()
-        -showTitle()
+        #showTitle()
         -showCssLinks()
         #showBodyContent()
         #showHeader()
@@ -46,12 +46,12 @@ classDiagram
         -showFooter()
     }
     class HomeDoc{
-        #showHead()
+        #showTitle()
         #showHeader()
         #showContent()
     }
     class AboutDoc{
-        #showHead()
+        #showTitle()
         #showHeader()
         #showContent()
     }
@@ -60,22 +60,22 @@ classDiagram
         +submitButton()
     }
     class ContactDoc{
-        #showHead()
+        #showTitle()
         #showHeader()
         #showContent()
     }
     class LoginDoc{
-        #showHead()
+        #showTitle()
         #showHeader()
         #showContent()
     }
     class RegisterDoc{
-        #showHead()
+        #showTitle()
         #showHeader()
         #showContent()
     }
     class PasswordDoc{
-        #showHead()
+        #showTitle()
         #showHeader()
         #showContent()
     }
@@ -86,28 +86,28 @@ classDiagram
     }
 
     class WebshopDoc{
-        #showHead()
+        #showTitle()
         #showHeader()
         #showContent()
     }
 
     class Top5Doc{
         -getTop5Productids()
-        #showHead()
+        #showTitle()
         #showHeader()
         #showContent()
     }
 
     class DetailDoc{
         -getDetailsProduct($productId)
-        #showHead()
+        #showTitle()
         #showHeader()
         #showContent()
     }
 
     class CartDoc{
         -getCartContent()
-        #showHead()
+        #showTitle()
         #showHeader()
         #showContent()
     }
