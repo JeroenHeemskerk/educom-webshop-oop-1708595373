@@ -1,6 +1,9 @@
 <?php
 require_once('formDoc.php');
  class ContactDoc Extends FormDoc{
+
+
+
   protected function showTitleContent(){
     echo 'Contact  page'; 
   }
