@@ -92,21 +92,21 @@ classDiagram
     }
 
     class Top5Doc{
-        #getTop5Productids()
+        -getTop5Productids()
         #showHead()
         #showHeader()
         #showContent()
     }
 
     class DetailDoc{
-        #getDetailsProduct($productId)
+        -getDetailsProduct($productId)
         #showHead()
         #showHeader()
         #showContent()
     }
 
     class CartDoc{
-        #getCartContent()
+        -getCartContent()
         #showHead()
         #showHeader()
         #showContent()
