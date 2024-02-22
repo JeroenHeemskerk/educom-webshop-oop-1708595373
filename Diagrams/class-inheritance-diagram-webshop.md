@@ -63,7 +63,9 @@ classDiagram
     }
     class FormDoc{
         <<abstract>>
-        +submitButton()
+        #formStart()
+        #submitButton()
+        #formEnd()
     }
     class ContactDoc{
         #showTitlContente()
