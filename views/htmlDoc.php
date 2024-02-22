@@ -1,5 +1,5 @@
 <?php
-class htmlDoc {
+class HtmlDoc {
   private function showHTMLstart(){ 
     echo '<!doctype html> 
      <html>';
@@ -9,18 +9,20 @@ class htmlDoc {
     echo '<head>';
   }
 
-  private function showHeadContent(){
+  protected function showHeadContent(){
   }
 
   private function showHeadEnd(){
     echo '</head>';
   }
+  
   private function showBodyStart(){
     echo '<body class="algemeen">' . PHP_EOL; 
   }
-  private function showBodyContent(){
 
+  protected function showBodyContent(){
   }
+
   private function showBodyEnd(){
     echo '</body>' . PHP_EOL; 
   }
