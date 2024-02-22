@@ -201,6 +201,7 @@ function showDocumentStart() {
 
 function showHeadSection($page){
   // only the title differs between these head sections so, you can load/close the head and reference the css here
+  echo '</head>';
   switch($page['page']){
     case 'home':
         showHeadHome();
@@ -220,7 +221,6 @@ function showHeadSection($page){
     case 'login': 
         showHeadLogin();
         break;    
-
     case 'password':
         showHeadPassword();
         break;
