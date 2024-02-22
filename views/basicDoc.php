@@ -16,6 +16,21 @@ class BasicDoc extends HtmlDoc {
   }
 
   protected function showTitle(){
+    $this -> showTitleStart();
+    $this -> showTitleContent();
+    $this -> showTitleEnd();
+  }
+
+  private function showTitleStart(){
+    echo '<title>';
+  }
+
+  protected function showTitleContent(){
+
+  }
+
+  private function showtitleEnd(){
+    echo '</title>';
   }
 
   private function showCssLinks(){
@@ -36,6 +51,21 @@ class BasicDoc extends HtmlDoc {
   }
 
   protected function showHeader(){
+    $this -> showHeaderStart();
+    $this -> showHeaderContent();
+    $this -> showHeaderEnd();
+  }
+
+  protected function showHeaderStart(){
+    echo '<header class=title><h1>';
+  }
+
+  protected function showHeaderContent(){
+
+  }
+
+  protected function showHeaderEnd(){
+    echo '</h1></header>';
   }
 
   protected function showContent(){

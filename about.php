@@ -1,7 +1,7 @@
 
 <?php
 function showHeadAbout(){
-  echo '<title> Home page </title>';
+  echo '<title> About page </title>';
 }
 
 function showHeaderAbout(){
