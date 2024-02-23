@@ -63,8 +63,6 @@ classDiagram
     }
     class FormDoc{
         <<abstract>>
-        #data 
-        +__construct(mydata)
         #showFormStart()
         #showFormContent()
         #showInputTextField()
