@@ -65,16 +65,20 @@ classDiagram
         <<abstract>>
         #showFormStart()
         #showFormContent()
+        #showInputSectionStart()
+        #showInputTextField()
+        #showInputSectionEnd()
         #showSubmitButton()
         #showFormEnd()
     }
     class ContactDoc{
-        +__construct()
         #showTitleContente()
         #showHeaderContent()
         #showContent()
-        #showFormStart()
         #showFormContent()
+        #showFormDropdown()
+        #showFormSelect()
+        #showFormLargeField()
         
     }
     class LoginDoc{
@@ -101,7 +105,6 @@ classDiagram
 
     class ProductDoc{
         <<abstract>>
-        +getProducts()
     }
 
     class WebshopDoc{
@@ -111,21 +114,18 @@ classDiagram
     }
 
     class Top5Doc{
-        -getTop5Productids()
         #showTitleContent()
         #showHeaderContent()
         #showContent()
     }
 
     class DetailDoc{
-        -getDetailsProduct()
         #showTitleContent()
         #showHeaderContent()
         #showContent()
     }
 
     class CartDoc{
-        -getCartContent()
         #showTitleContent()
         #showHeaderContent()
         #showContent()
