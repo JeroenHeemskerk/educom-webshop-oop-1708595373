@@ -73,8 +73,10 @@ classDiagram
         #showTitleContente()
         #showHeaderContent()
         #showContent()
-        #showFormStart()
         #showFormContent()
+        #showFormDropdown()
+        #showFormSelect()
+        #showFormLargeField()
         
     }
     class LoginDoc{
