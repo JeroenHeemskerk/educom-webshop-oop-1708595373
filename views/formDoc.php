@@ -17,21 +17,24 @@ abstract class FormDoc Extends BasicDoc{
     </form> ';
   }
 
-  protected function showInputField(){
-    $inputs = $this ->getData()['formInputs'];
-    $errors = $inputs['error'];
-    $inputs = $inputs['inputText'];
+  protected function showInputSectionStart($id, $label){
+    echo '<div>
+    <label for="'.$id.'"> '.$label.':</label>';
+  }
+  
+  protected function showInputSectionEnd($error){
+    echo '<span class="error">'.$error.' </span>
+    </div>';
+  }
+
+  protected function showInputField($inputs, $errors){
     foreach ($inputs as $id => $content){
       $label = key($inputs[$id]);
       $value = $inputs[$id][$label];
-      echo'
-      <div>
-      <label for="'.$id.'"> '.$label.':</label> 
-      <input type="text" '.$id.'="name" value="'.$value.'" id="'.$id.'">
-      <span class="error">'.$errors[$id].' </span>
-      </div>';
+      $this -> showInputSectionStart($id, $label);
+      echo'<input type="text" '.$id.'="name" value="'.$value.'" id="'.$id.'">';
+      $this -> showInputSectionEnd($errors[$id]);
     } 
-
   }
 
   protected function showSubmitButton(){

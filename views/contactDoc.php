@@ -18,16 +18,18 @@ require_once('formDoc.php');
   }
 
   protected function showFormContent(){ 
-
-    $this -> showFormDropDown();
-    $this -> showInputField();
-    $this -> showFormSelect();
-    $this -> showFormLargeField();
+    $inputForm = $this ->getData()['formInputs'];
+    $errors = $inputForm['error'];
+    $inputField = $inputForm['inputText'];
+    $inputOther = $inputForm['inputOther'];
+    $this -> showFormDropDown($inputOther, $errors);
+    $this -> showInputField($inputField, $errors);
+    $this -> showFormSelect($inputOther, $errors);
+    $this -> showFormLargeField($inputOther, $errors);
   }
 
-  protected function showFormDropDown(){
+  protected function showFormDropDown($inputs, $errors){
     $errors = $this->getData()['formInputs']['error'];
-    $inputs = $this->getData()['formInputs']['inputOther'];
     echo '  <div>
     <label for="title">Title:</label> 
     <select id="title" name="title">
@@ -40,12 +42,9 @@ require_once('formDoc.php');
     </div>'; 
   }
 
-  protected function showFormSelect(){
-    $errors = $this->getData()['formInputs']['error'];
-    $inputs = $this->getData()['formInputs']['inputOther'];
+  protected function showFormSelect($inputs, $errors){
+    $this -> showInputSectionStart('city', 'Hoe wilt u communiceren?');
     echo '
-    <div>
-    <label for="city">Hoe wilt u communiceren?</label> 
     </div>
     <fieldset class = "communication">
        <legend class = "communication"><span class="error">'.$errors['communication'].'</span></legend> 
@@ -65,15 +64,11 @@ require_once('formDoc.php');
       </fieldset>';
   }
 
-  protected function showFormLargeField(){
-    $errors = $this->getData()['formInputs']['error'];
-    $inputs = $this->getData()['formInputs']['inputOther'];
+  protected function showFormLargeField($inputs, $errors){
+    $this -> showInputSectionStart("message", "Waarom wilt u contact opnemen?");
     echo '
-    <div>
-      <label for="message">Waarom wilt u contact opnemen?</label>
-      <textarea id="message" name="message" rows="4" cols="50" placeholder="'.$inputs['message'].'" ></textarea>
-      <span class="error">'.$errors['message'].'</span>
-    </div>';
+      <textarea id="message" name="message" rows="4" cols="50" placeholder="'.$inputs['message'].'" ></textarea>';
+    $this -> showInputSectionEnd($errors['message']);
   }
 
 
