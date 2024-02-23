@@ -65,7 +65,9 @@ classDiagram
         <<abstract>>
         #showFormStart()
         #showFormContent()
+        #showInputSectionStart()
         #showInputTextField()
+        #showInputSectionEnd()
         #showSubmitButton()
         #showFormEnd()
     }
