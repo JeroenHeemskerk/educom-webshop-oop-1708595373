@@ -13,29 +13,49 @@ abstract class FormDoc Extends BasicDoc{
   }
 
   protected function showFormEnd(){
-    echo'</fieldset>
-    </form> ';
+    echo'</fieldset>';
+    echo '</form> ';
   }
 
   protected function showInputSectionStart($id, $label){
-    echo '<div>
+    return '<div>
     <label for="'.$id.'"> '.$label.':</label>';
   }
   
   protected function showInputSectionEnd($error){
-    echo '<span class="error">'.$error.' </span>
+    return '<span class="error">'.$error.' </span>
     </div>';
   }
 
-  protected function showInputField($inputs, $errors){
-    foreach ($inputs as $id => $content){
-      $label = key($inputs[$id]);
-      $value = $inputs[$id][$label];
-      $this -> showInputSectionStart($id, $label);
-      echo'<input type="text" '.$id.'="name" value="'.$value.'" id="'.$id.'">';
-      $this -> showInputSectionEnd($errors[$id]);
-    } 
-  }
+  protected function showFormField($id, $label, $type = 'text', $options=''){
+    $content = $this->getData()['formInputs']['inputText'][$id];
+    $error = $this->getData()['formInputs']['error'][$id];
+    $line = $this->showInputSectionStart($id, $label);
+    if ($type != 'select') {
+      //$line = $line."Something";
+      $line = $line . '<input type = '.$type.' name='.$id.' value= "'.$content.'" id="'.$id.'"' ;
+      if ($type == 'text'){ 
+        $line = $line . "/>";
+        $line = $line . $this->showInputSectionEnd($error);
+        }
+      if ($type ==  'radio'){
+        // $line is gonna be needed multiple times
+        
+      }
+
+
+    } else {
+      $line = $line . '<select id="'.$id.'" name="'.$id.'">
+      <option value=""></option>';
+      foreach ($options as $id =>  $display){
+        $line = $line . '<option value="'.$id.'" '.($content == "'.$id.'"   ? "selected" : "").' >'.$display.'.</option> ';
+
+      }
+      $line = $line . '</select>';
+    }
+    echo $line;
+    }
+
 
   protected function showSubmitButton(){
     echo'  <div>

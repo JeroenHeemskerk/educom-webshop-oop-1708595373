@@ -78,7 +78,8 @@ function showContentContact($formInputs){
       <label for="phone">Telefoon</label> 
       </div>
       <div>
-      <input type="radio" name="communication" value="post"  '.($communication == "post"   ? "checked" : "").' > 
+      <input type="radio" name="communication" value="post"  
+      '.($communication == "post"   ? "checked" : "").' > 
      
       <label for="post">Post</label>
       </div>
