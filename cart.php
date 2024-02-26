@@ -35,7 +35,7 @@ function showContentCart($content){
         </div> 
         <div class=cartText> <span>'.$name.' </span></div>
         <div class=cartText> <span>'.$orderAmount.'</span> </div>
-        <div class=cartText> <span> &euro;'.$price.'</pspan> </div>
+        <div class=cartText> <span> &euro;'.$price.'</span> </div>
       </div>'; 
     
   }
@@ -67,7 +67,7 @@ function addToCartButton($page, $id){
   if (isset($_SESSION['userName'])){
     echo '
     <form action="index.php?page=cart" method="POST">
-    <input type="hidden" name="page"value="cart">
+    <input type="hidden" name="page" value="cart">
     <input type="hidden" name="action" value="addToCart">
     <input type="hidden" name="id" value="'.$id.'">
     <button type="submit">Toevoegen aan bestelling</button>

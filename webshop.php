@@ -9,7 +9,7 @@ function showHeaderWebshop(){
 
 function showContentWebshop($data){
   $data = removeNonBodyArray($data);
-    if(isset($data['error'])){
+    if(isset($data['dbError'])){
       echo 'Database kan momenteel niet bereikt worden';
     }
 

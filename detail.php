@@ -32,12 +32,8 @@ function showContentDetail($item){
       <div>
       <h2> '.$item['name'].' </h2>
       </div>
-      <div>
-      <span> '.$item['description'].' </span>
-      </div>
-      <div>
-        <span class=price>&euro;'.$item['price'].'  </span>
-      </div>
+      <div> <span> '.$item['description'].' </span> </div>
+      <div> <span class=price> &euro;'.$item['price'].'</span> </div>
       <div>';
       addToCartButton('webshop', $id);
   echo '</div>    

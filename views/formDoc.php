@@ -17,12 +17,12 @@ abstract class FormDoc Extends BasicDoc{
     echo '</form> ';
   }
 
-  protected function showInputSectionStart($id, $label){
+  private function showInputSectionStart($id, $label){
     return '<div>
     <label for="'.$id.'"> '.$label.':</label>';
   }
   
-  protected function showInputSectionEnd($error){
+  private function showInputSectionEnd($error){
     return '<span class="error">'.$error.' </span>
     </div>';
   }
