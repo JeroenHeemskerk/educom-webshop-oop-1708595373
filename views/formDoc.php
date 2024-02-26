@@ -31,30 +31,23 @@ abstract class FormDoc Extends BasicDoc{
     $content = $this->getData()['formInputs']['inputText'][$id];
     $error = $this->getData()['formInputs']['error'][$id];
     $line = $this->showInputSectionStart($id, $label);
-    if ($type != 'select') {
-      //$line = $line."Something";
+    if ($type == 'text'){ 
       $line = $line . '<input type = '.$type.' name='.$id.' value= "'.$content.'" id="'.$id.'"' ;
-      if ($type == 'text'){ 
-        $line = $line . "/>";
-        $line = $line . $this->showInputSectionEnd($error);
-        }
-      if ($type ==  'radio'){
-        // $line is gonna be needed multiple times
-        
-      }
-
-
-    } else {
+      $line = $line . "/>";
+    } elseif  ($type == 'select') {
+      //$line = $line."Something";
       $line = $line . '<select id="'.$id.'" name="'.$id.'">
       <option value=""></option>';
       foreach ($options as $id =>  $display){
         $line = $line . '<option value="'.$id.'" '.($content == "'.$id.'"   ? "selected" : "").' >'.$display.'.</option> ';
-
       }
       $line = $line . '</select>';
+    } else {
+      $line = $line. '<textarea id="'.$id.'" name="'.$id.'" rows="'.$options['rows'].'" cols="'.$options['cols'].'" placeholder="'.$content.'" ></textarea>';
     }
+    $line = $line . $this->showInputSectionEnd($error);
     echo $line;
-    }
+  }
 
 
   protected function showSubmitButton(){
