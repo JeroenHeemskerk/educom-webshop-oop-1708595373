@@ -10,21 +10,21 @@ function postDataRegister(){
 
 function formCheckRegister($formInputs ){
    // array order is  name, email, password, repeat password
-  $errors = array('nameErr' => '', 'emailErr' => '', 'passwordErr' => '', 'repeatErr' => '');
+  $errors = array('name' => '', 'email' => '', 'password' => '', 'repeat' => '');
   $emailExist = false;
   $passwordMatch = checkPasswordMatch($formInputs['password'],$formInputs['repeat']);
 
   // checking if the email is valid
-  $errors['emailErr'] = checkEmail($formInputs['email']);
+  $errors['email'] = checkEmail($formInputs['email']);
   // checking if the passwords match
   if (empty($passwordMatch)){
-    $errors['passwordErr'] = $errors['repeatErr'] = "Wachtworden matchen niet";} 
+    $errors['password'] = $errors['repeat'] = "Wachtworden matchen niet";} 
     
 
-  $errors['nameErr'] = checkFieldContent($formInputs['name']);
-  $errors['emailErr'] = checkFieldContent($formInputs['email']);
-  $errors['passwordErr'] = checkFieldContent($formInputs['password']);
-  $errors['repeatErr'] = checkFieldContent($formInputs['repeat']);
+  $errors['name'] = checkFieldContent($formInputs['name']);
+  $errors['email'] = checkFieldContent($formInputs['email']);
+  $errors['password'] = checkFieldContent($formInputs['password']);
+  $errors['repeat'] = checkFieldContent($formInputs['repeat']);
 
   /*for ($x = 0; $x <= 3; $x++){
     $errors[$x] = checkFieldContent($formInputs[$x]);
@@ -33,8 +33,8 @@ function formCheckRegister($formInputs ){
   try {
   $emailExist = doesEmailExist($formInputs['email']);
   } catch (Exception $e) {
-    $errrors['nameErr'] = 'Er is een probleem met de server, probeer later nog eens';
-    logErrors('Connection failed'.$e);
+    $errrors['name'] = 'Er is een probleem met de server, probeer later nog eens';
+    logors('Connection failed'.$e);
   }
   if ($emailExist) {
     $errors[1] = "Deze mail is al in gebruik";
@@ -47,8 +47,8 @@ function formCheckRegister($formInputs ){
     saveUser($formInputs['email'], $formInputs['name'], $formInputs['password']);
     }
     catch (Exception $e) { 
-      $errors['nameErr'] = 'Er is een probleem met de server, probeer later nog eens';
-      logErrors('Connection failed'.$e);
+      $errors['name'] = 'Er is een probleem met de server, probeer later nog eens';
+      logors('Connection failed'.$e);
     }
 
   } else {
@@ -73,22 +73,22 @@ function showContentRegister($formInputs){
   <div> 
     <label for="name"> Naam:</label> 
     <input type="text" name="name" value="'.$formInputs['name'].'" id="name">
-    <span class="error">* '.$formInputs['nameErr'].'</span>
+    <span class="error">* '.$formInputs['name'].'</span>
   </div>
   <div> 
     <label for="email"> Email:</label> 
     <input type="text" name="email" value="'.$formInputs['email'].'" id="email">
-    <span class="error">* '.$formInputs['emailErr'].'</span>
+    <span class="error">* '.$formInputs['email'].'</span>
   </div>
   <div> 
     <label for="password"> Wachtword:</label> 
     <input type="text" name="password" value="'.$formInputs['password'].'" id="password">
-    <span class="error">* '.$formInputs['passwordErr'].'</span>
+    <span class="error">* '.$formInputs['password'].'</span>
   </div>
   <div> 
     <label for="repeat"> Herhaal het wachtword:</label> 
     <input type="text" name="repeat" value="'.$formInputs['repeat'].'" id="repeat">
-    <span class="error">* '.$formInputs['repeatErr'].'</span>
+    <span class="error">* '.$formInputs['repeat'].'</span>
   </div>
   <div>
     <input class = "submit" type="submit" value="Submit">

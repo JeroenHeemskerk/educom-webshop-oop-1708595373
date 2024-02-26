@@ -34,7 +34,7 @@ class BasicDoc extends HtmlDoc {
   }
 
   private function showCssLinks(){
-    echo'<link rel="stylesheet" href="../CSS/mystyle.css">';
+    echo'<link rel="stylesheet" href="CSS/mystyle.css">';
   }
 
   private function showMenu(){

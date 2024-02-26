@@ -1,5 +1,11 @@
 <?php
 //load in required external functions
+require_once('views/homeDoc.php');
+require_once('views/aboutDoc.php');
+require_once('views/contactDoc.php');
+require_once('views/webshopDoc.php');
+require_once('views/top5Doc.php');
+require_once('views/registerDoc.php');
 require('session_Manager.php');
 require('home.php');
 require('about.php');
@@ -47,31 +53,22 @@ function processRequest($page){
   $data = array('page' => $page);
   switch($page){
     case 'contact':
-      // first step is retrieving the input data, I want to retrieve inputs only once
-      $formInputs = postDataContact();
+      // okay time to set this up fresh
+      $data['inputText'] = postDataContact();
       // next we have to check if there are any error messages
-      $errors = formCheckContact($formInputs);
-      // finally appending them together to create a page reference with all the data required to fill said page (on POST)
-      $formInputs = array_merge($formInputs, $errors);
-      // then make it part of the data
-      $data = array_merge($formInputs, $data);
+      $data['inputError']  = formCheckContact($data['inputText']);
       break;
     case 'register':
-      $formInputs = postDataRegister();
-      $errors = formCheckRegister($formInputs);
-      $formInputs = array_merge($formInputs, $errors);
-      $data = array_merge($formInputs, $data);
+      $data['inputText'] = postDataRegister();
+      $data['inputError'] = formCheckRegister($data['inputText']);
       break;
     case 'login':
-      $formInputs = postDataLogin();
-      $errors = formCheckLogin($formInputs);
-      $formInputs = array_merge($formInputs, $errors);
-      $data = array_merge($data, $formInputs);
+      $data['inputText'] = postDataLogin();
+      $data['inputError'] = formCheckLogin($data['inputText']);
       break;
     case 'password':
-      $formInputs = postDataPassword();
-      $errors = formCheckPasswords($formInputs);
-      $data = array_merge($errors, $data);
+      $data['inputText'] = postDataPassword();
+      $data['inputError'] = postDataPassword($data['inputText']);
       break;
     case 'logout':
       doLogout();
@@ -79,10 +76,9 @@ function processRequest($page){
       break;
     case 'webshop':
       try {
-      $items = getItemsFromDB('id, name, price, image');
+      $data['items'] = getItemsFromDB('id, name, price, image');
       } catch (exception $e) {$items['error'] = 'Kon database niet bereiken';
       logErrors($e->getMessage());}
-      $data = array_merge($items, $data);
       break;
     case strstr($data['page'], 'product'):
       $details = prepareDetail($data['page']);
@@ -94,8 +90,7 @@ function processRequest($page){
       $data = array_merge($basket, $data);
       break;
     case 'top':
-      $top = handleTop();
-      $data = array_merge($top, $data);
+      $data['items'] = handleTop();
       break;
   }
   // no matter the page, some data is always necessary: the menu
@@ -187,11 +182,34 @@ function logErrors($msg){
   echo "LOG TO SERVER:".$msg;
 }
 
-function showResponsePage($page) {
+function showResponsePage($data) {
+  switch($data['page']){
+    case 'home':
+      $view = new HomeDoc($data);
+      break;
+    case 'about':
+      $view = new AboutDoc($data);
+      break;
+    case 'contact':
+      $view = new ContactDoc($data);
+      break;
+    case 'webshop':
+      $view = new WebshopDoc($data);
+      break;
+    case 'top':
+      $view = new Top5Doc($data);
+      break;
+    case 'register':
+      $view = new RegisterDoc($data);
+      var_dump($data); 
+      break;
+  }
+  $view  -> show();
+  /*
   showDocumentStart(); 
   showHeadSection($page); 
   showBodySection($page); 
-  showDocumentEnd(); 
+  showDocumentEnd(); */
 }     
 
 function showDocumentStart() { 

@@ -28,8 +28,8 @@ abstract class FormDoc Extends BasicDoc{
   }
 
   protected function showFormField($id, $label, $type = 'text', $options=''){
-    $content = $this->getData()['formInputs']['inputText'][$id];
-    $error = $this->getData()['formInputs']['error'][$id];
+    $content = $this->getData()['inputText'][$id];
+    $error = $this->getData()['inputError'][$id];
     $line = $this->showInputSectionStart($id, $label);
     if ($type == 'text'){ 
       $line = $line . '<input type = '.$type.' name='.$id.' value= "'.$content.'" id="'.$id.'"' ;

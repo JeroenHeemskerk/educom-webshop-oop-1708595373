@@ -49,7 +49,7 @@ abstract class ProductDoc Extends BasicDoc{
   }
 
   private function showProductImage($item, $imagesize){
-      $line = '<img src="..\\images\\'.$item['image'].'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].'px;">';
+      $line = '<img src="images\\'.$item['image'].'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].'px;">';
 
       return $line;
   }
