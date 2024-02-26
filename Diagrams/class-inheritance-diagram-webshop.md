@@ -102,7 +102,7 @@ classDiagram
 
     class ProductDoc{
         <<abstract>>
-        #showProduct()
+        #showProductContent()
         #showProductImage()
         #showProductLink()
         #showProductPrice()
