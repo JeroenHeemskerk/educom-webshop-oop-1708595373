@@ -18,14 +18,6 @@ require_once('formDoc.php');
   }
 
   protected function showFormContent(){ 
-    $inputForm = $this ->getData()['formInputs'];
-    $errors = $inputForm['error'];
-    $inputField = $inputForm['inputText'];
-    //$this -> showFormDropDown($inputOther, $errors);
-    //$myData['formInputs']['inputText'] = array('title' => '' , 'name' => '', 'email' => '', 'phonenumber' => '',
-    //                                        'street' => '', 'housenumber' => '',
-     //                                     'postalcode' => '', 'city' => '', 'communication' => '', 'message' => '');
-
     $this -> showFormField('title', 'Title', 'select', array("mr" => "Dhr", 'mrs' => 'Mvr', 'other' => 'Anders')) ;
     $this -> showFormField('name', 'Naam', 'text');
     $this -> showFormField('email', 'Email', 'text');
@@ -36,45 +28,6 @@ require_once('formDoc.php');
     $this -> showFormField('city', 'Woonplaats', 'text');
     $this -> showFormField('communication', 'Hoe wilt u communiceren?', 'select', array('email'=> 'Email', 'phone'=>'Telefoon', 'post'=> 'Post'));
     $this -> showFormField('message', 'Waarom wilt u contact opnemen?', 'textarea', array('rows' => 4, 'cols' => 50));
-    //$this -> showFormField($inputField, $errors, 'text');
-    //$this -> showFormSelect($inputOther, $errors);
-    //$this -> showFormLargeField($inputOther, $errors);
-  }
-
-  protected function showFormSelect($inputs, $errors){
-    $this -> showFormSelectStart($errors);
-    $this -> showFormSelectButton($inputs, 'Email', 'email', 'communication');
-    $this -> showFormSelectButton($inputs, "Telefoon", "phone", "communication");
-    $this -> showFormSelectButton($inputs, "Post", "post", "communication");
-    $this -> showFormSelectEnd();
-  }
-
-  protected function showFormSelectStart($errors){
-    $this -> showInputSectionStart('communicatie', 'Hoe wilt u communiceren?');
-    echo '
-    </div>
-    <fieldset class = "communication">
-       <legend class = "communication"><span class="error">'.$errors['communication'].'</span></legend>';
-  }
-
-  protected function showFormSelectButton($inputs, $label, $id, $name){
-    $this -> showInputSectionStart($id, $label);
-    echo'
-    <input type="radio" name="'.$name.'" value="'.$id.'" '.($inputs['communication'] == "'.$id.'"    ? "checked" : "").' > 
-    </div>';
-  }
-
-  protected function showFormSelectEnd(){
-    echo'
-      </legend>
-    </fieldset>';
-  }
-
-  protected function showFormLargeField($inputs, $errors){
-    $this -> showInputSectionStart("message", "Waarom wilt u contact opnemen?");
-    echo '
-      <textarea id="message" name="message" rows="4" cols="50" placeholder="'.$inputs['message'].'" ></textarea>';
-    $this -> showInputSectionEnd($errors['message']);
   }
 
 
