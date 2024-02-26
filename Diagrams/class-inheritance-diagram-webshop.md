@@ -82,27 +82,25 @@ classDiagram
         #showTitleContente()
         #showHeaderContent()
         #showContent()
-        #showFormStart()
         #showFormContent()
     }
     class RegisterDoc{
         #showTitleContente()
         #showHeaderContent()
         #showContent()
-        #showFormStart()
         #showFormContent()
     }
     class PasswordDoc{
         #showTitleContent()
         #showHeaderContent()
         #showContent()
-        #showFormStart()
         #showFormContent()
     }
 
     class ProductDoc{
         <<abstract>>
         #showProductContent()
+        #showProductField()
         #showProductImage()
         #showProductLink()
         #showProductPrice()
