@@ -102,6 +102,12 @@ classDiagram
 
     class ProductDoc{
         <<abstract>>
+        #showProduct()
+        #showProductImage()
+        #showProductLink()
+        #showProductPrice()
+        #showProductName()
+        #showProductDescription()
     }
 
     class WebshopDoc{
