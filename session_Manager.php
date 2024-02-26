@@ -5,7 +5,6 @@ function doLoginUser($name, $email){
   $_SESSION['userName'] = $name;
   $_SESSION['email'] = $email;
   makeCart();
-
 }
 
 function makeCart(){

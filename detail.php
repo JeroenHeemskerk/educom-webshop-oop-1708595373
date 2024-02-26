@@ -5,7 +5,7 @@ function prepareDetail($page){
   $detail['name'] = explode( '-',  $page, 3)[1];
   $detail['id']  = explode( '-',  $page, 3)[2];
   try{
-    $detail['items'] = getItemsFromDB('name, price, description, image', 'products', 'id='.$detail['id']);
+    $detail['items'] = getItemsFromDB('name, price, description, image, id', 'products', 'id='.$detail['id']);
     } catch (exception $e) {$details['error'] = 'Kon database niet bereiken';
   }
   return $detail;
