@@ -7,15 +7,58 @@ abstract class ProductDoc Extends BasicDoc{
     $line = '';
     if($type == 'menu'){
       $line = $line . $this->showProductMenu($page, $items, $imagesize);
+    } else if ($type == 'detail'){
+      $item = $this->data['items'][0];
+      $line = $line . $this->showProductImage($item, $imagesize);
+
     }
     echo $line;
   }
 
+  //maybe move these up a class later
+  protected function startDivSection($class=''){
+    echo '<div class="'.$class.'">';
+  }
+  
+  protected function endDivSection(){
+    echo '</div>';
+  }
+
+  protected function showSpanText($class, $text, $item=''){
+    if (!empty($item)){
+      $text = $item[$text];
+    }
+    $this->startDivSection();
+    echo '<span class = '.$class.'> '.$text.' </span>';
+    $this-> endDivSection();
+
+  }
+
+  private function showAddToCart($page, $item){
+  $line = '';
+    if (isset($_SESSION['userName'])){
+      $line = '
+      <form action="index.php?page="'.$page.'" method="POST">
+      <input type="hidden" name="page" value="'.$page.'">
+      <input type="hidden" name="action" value="addToCart">
+      <input type="hidden" name="id" value="'.$id.'">
+      <button type="submit">Toevoegen aan bestelling</button>
+      </form>';
+    }
+    return $line;
+  }
+
   private function showProductImage($item, $imagesize){
-      $line =  '<a class=product_image  href="index.php?page=product-'.$item['name'].'-'.$item['id'].'"> 
-      <img src="..\\images\\'.$item['image'].'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].'px;"> 
-      </a>';
+      $line = '<img src="..\\images\\'.$item['image'].'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].'px;">';
+
       return $line;
+  }
+
+  private function showProductImageLink($item, $imagesize){
+    $line =  '<a class=product_image  href="index.php?page=product-'.$item['name'].'-'.$item['id'].'">';
+    $line = $line . $this->showProductImage($item, $imagesize);
+    $line = $line .'</a>';
+    return $line;
   }
 
   private function showProductName($item){
@@ -26,6 +69,7 @@ abstract class ProductDoc Extends BasicDoc{
       </h3>';
     return $line;
   }
+
 
   private function showProductMenu($page, $items, $imagesize){
     $line = '';
@@ -38,7 +82,7 @@ abstract class ProductDoc Extends BasicDoc{
       <li class=product_webshop>
       <br>
       <article>'; 
-      $line = $line. $this->showProductImage($item, $imagesize); 
+      $line = $line.$this->showProductImageLink($item, $imagesize); 
       $line = $line.$this->showProductName($item);
 
       if ($page == 'webshop'){
@@ -46,11 +90,9 @@ abstract class ProductDoc Extends BasicDoc{
         <div class=product_price>
         <span class=price>&euro;'.$item['price'].'  </span>
         </div>';
+        // if logged in 
+        //$line = $line.this->showAddToCar('webshop', $item['id']);
       }
-
-      // show button for adding to shopping cart
-      //addToCartButton('webshop', $x['id']);
-
       $line = $line .'</article>
       </li>';
     }

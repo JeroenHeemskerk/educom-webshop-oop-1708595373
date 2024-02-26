@@ -13,6 +13,7 @@ function showContentCart($content){
   // call upon a function to filter out the unneeded entires
   $content = removeNonBodyArray($content);
   $costs = array_shift($content);
+
   echo '<div class=cartItem> 
   <div class=cartText> </div> 
   <div class=cartText> <span> product Name </span></div>

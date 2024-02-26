@@ -30,7 +30,7 @@ function showContentDetail($item){
     </div>
     <div class = text>
       <div>
-      <h2> '.$item['name'].' </h2>
+      <span> '.$item['name'].' </span>
       </div>
       <div> <span> '.$item['description'].' </span> </div>
       <div> <span class=price> &euro;'.$item['price'].'</span> </div>
