@@ -65,9 +65,11 @@ classDiagram
         <<abstract>>
         #showFormStart()
         #showFormContent()
-        #showInputSectionStart()
-        #showInputTextField()
-        #showInputSectionEnd()
+        #showFormStart()
+        #showFormField()
+        $showFormEnd()
+        -showInputSectionStart()
+        -showInputSectionEnd()
         #showSubmitButton()
         #showFormEnd()
     }
@@ -76,35 +78,37 @@ classDiagram
         #showHeaderContent()
         #showContent()
         #showFormContent()
-        #showFormDropdown()
-        #showFormSelect()
-        #showFormLargeField()
         
     }
     class LoginDoc{
         #showTitleContente()
         #showHeaderContent()
         #showContent()
-        #showFormStart()
         #showFormContent()
     }
     class RegisterDoc{
         #showTitleContente()
         #showHeaderContent()
         #showContent()
-        #showFormStart()
         #showFormContent()
     }
     class PasswordDoc{
         #showTitleContent()
         #showHeaderContent()
         #showContent()
-        #showFormStart()
         #showFormContent()
     }
 
     class ProductDoc{
         <<abstract>>
+        #showProductContent()
+        -showProductMenu()
+        -showProductImage()
+        -showProductLink()
+        -showProductPrice()
+        -showProductName()
+        -showProductDescription()
+        -showCartButton()
     }
 
     class WebshopDoc{
