@@ -41,11 +41,12 @@ abstract class ProductDoc Extends BasicDoc{
       $line = $line. $this->showProductImage($item, $imagesize); 
       $line = $line.$this->showProductName($item);
 
+      if ($page == 'webshop'){
       $line = $line .'
         <div class=product_price>
         <span class=price>&euro;'.$item['price'].'  </span>
         </div>';
-
+      }
 
       // show button for adding to shopping cart
       //addToCartButton('webshop', $x['id']);
