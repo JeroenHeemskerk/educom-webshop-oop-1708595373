@@ -6,11 +6,11 @@ class PasswordDoc Extends FormDoc{
  }
 
  protected function showHeaderContent(){
-   echo 'Password'; 
+   echo 'Nieuw wachtwoord'; 
  }
 
  protected function showContent(){
-    $this->showFormStart('password');
+    $this->showFormStart();
     $this->showFormContent();
     $this->showSubmitButton();
     $this->showFormEnd();
@@ -18,23 +18,9 @@ class PasswordDoc Extends FormDoc{
 
 
   protected function showFormContent(){
-    $formInputs = $this->getData()['formInputs'];
-    echo '
-    <div> 
-    <label for="oldPass">Oude wachtwoord:</label> 
-    <input type="text" name="oldPass" value="" id="oldPass">
-    <span class="error">* '.$formInputs['oldPass'].'</span>
-  </div>
-    <div> 
-    <label for="newPass"> Nieuw wachtwoord:</label> 
-    <input type="text" name="newPass" value="" id="newPass">
-    <span class="error">* '.$formInputs['newPass'].'</span>
-  </div>
-    <div> 
-    <label for="repeatNewPass"> Herhaal nieuw wachtwoord:</label> 
-    <input type="text" name="repeatNewPass" value="" id="repeatNewPass">
-    <span class="error">* '.$formInputs['repeatNewPass'].'</span>
-  </div>';
+    $this -> showFormField('oldPass', 'Wachtwoord', 'text');
+    $this -> showFormField('newPass', 'Nieuw wachtwoord', 'text');
+    $this -> showFormField('newRepeatPass', 'Herhaal nieuw wachtwoord', 'text');
   }
 
 }
