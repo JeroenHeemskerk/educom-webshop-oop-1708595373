@@ -10,7 +10,7 @@ class LoginDoc Extends FormDoc{
   }
 
  protected function showContent(){
-    $this->showFormStart('login');
+    $this->showFormStart();
     $this->showFormContent();
     $this->showSubmitButton();
     $this->showFormEnd();
@@ -18,7 +18,8 @@ class LoginDoc Extends FormDoc{
 
 
   protected function showFormContent(){
-    $this->$showInputField();
+    $this -> showFormField('email', 'Email', 'text');
+    $this -> showFormField('password', 'Wachtwoord', 'text');
   }
 
 }

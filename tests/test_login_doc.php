@@ -2,6 +2,7 @@
 include_once "../views/loginDoc.php";
 
 $myData = array();
+$myData['page'] = 'login';
 $myData['menu'] = array('home' => 'Home', 'about' => 'Over mij', 'contact' => 'Contact', 'webshop' => 'WEBSHOP', 'top' => 'TOP 5');
 
 
