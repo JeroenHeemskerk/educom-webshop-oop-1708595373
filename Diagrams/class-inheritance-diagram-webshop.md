@@ -102,13 +102,13 @@ classDiagram
     class ProductDoc{
         <<abstract>>
         #showProductContent()
-        #showProductMenu()
-        #showProductImage()
-        #showProductLink()
-        #showProductPrice()
-        #showProductName()
-        #showProductDescription()
-        #showCartButton()
+        -showProductMenu()
+        -showProductImage()
+        -showProductLink()
+        -showProductPrice()
+        -showProductName()
+        -showProductDescription()
+        -showCartButton()
     }
 
     class WebshopDoc{
