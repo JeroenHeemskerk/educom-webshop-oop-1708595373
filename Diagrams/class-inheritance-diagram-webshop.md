@@ -100,7 +100,7 @@ classDiagram
     class ProductDoc{
         <<abstract>>
         #showProductContent()
-        #showProductField()
+        #showProductMenu()
         #showProductImage()
         #showProductLink()
         #showProductPrice()
