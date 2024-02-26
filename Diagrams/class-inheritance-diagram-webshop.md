@@ -65,9 +65,9 @@ classDiagram
         <<abstract>>
         #showFormStart()
         #showFormContent()
-        #showInputSectionStart()
-        #showInputTextField()
-        #showInputSectionEnd()
+        #showFormStart()
+        #showFormField()
+        $showFormEnd()
         #showSubmitButton()
         #showFormEnd()
     }
@@ -76,9 +76,6 @@ classDiagram
         #showHeaderContent()
         #showContent()
         #showFormContent()
-        #showFormDropdown()
-        #showFormSelect()
-        #showFormLargeField()
         
     }
     class LoginDoc{
