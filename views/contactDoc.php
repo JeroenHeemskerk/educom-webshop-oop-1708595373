@@ -30,7 +30,6 @@ require_once('formDoc.php');
     $this -> showFormField('message', 'Waarom wilt u contact opnemen?', 'textarea', array('rows' => 4, 'cols' => 50));
   }
 
-
 } 
 
 

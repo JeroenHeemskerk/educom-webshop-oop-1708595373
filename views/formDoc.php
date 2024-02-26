@@ -18,11 +18,18 @@ abstract class FormDoc Extends BasicDoc{
   }
 
   private function showInputSectionStart($id, $label){
+    /* 
+    id string
+    label string 
+    */ 
     return '<div>
     <label for="'.$id.'"> '.$label.':</label>';
   }
   
   private function showInputSectionEnd($error){
+    /*
+    error string
+    */
     return '<span class="error">'.$error.' </span>
     </div>';
   }

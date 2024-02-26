@@ -3,6 +3,7 @@ require_once('htmlDoc.php');
 class BasicDoc extends HtmlDoc {
   protected $data;
   public function __construct($myData){
+    // $myData array, which at minimum contains a ['menu'] array
     $this->data = $myData;
   } 
 
@@ -85,5 +86,4 @@ class BasicDoc extends HtmlDoc {
   }
 
 }
-
 ?>

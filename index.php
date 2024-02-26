@@ -8,6 +8,7 @@ require_once('views/cartDoc.php');
 require_once('views/top5Doc.php');
 require_once('views/registerDoc.php');
 require_once('views/loginDoc.php');
+require_once('views/detailDoc.php');
 require_once('views/passwordDoc.php');
 require('session_Manager.php');
 require('home.php');
@@ -215,6 +216,9 @@ function showResponsePage($data) {
       break;
     case 'password':
       $view = new PasswordDoc($data);
+      break;
+    case 'product':
+      $view = new DetailDoc($data);
       break;
   }
   $view  -> show();

@@ -2,6 +2,10 @@
 require_once('basicDoc.php');
 abstract class ProductDoc Extends BasicDoc{
   protected  function showProductContent($type, $imagesize){
+    /*
+    type string
+    imagesize array('width', 'height')
+    */
     $page = $this->data['page']; 
     $items = $this->data['items'];
     $line = '';
@@ -10,13 +14,15 @@ abstract class ProductDoc Extends BasicDoc{
     } else if ($type == 'detail'){
       $item = $this->data['items'][0];
       $line = $line . $this->showProductImage($item, $imagesize);
-
     }
     echo $line;
   }
 
   //maybe move these up a class later
   protected function startDivSection($class=''){
+    /* 
+    class string
+    */ 
     echo '<div class="'.$class.'">';
   }
   
@@ -25,16 +31,24 @@ abstract class ProductDoc Extends BasicDoc{
   }
 
   protected function showSpanText($class, $text, $item=''){
+    /* 
+    class string
+    text string
+    item array
+    */
     if (!empty($item)){
       $text = $item[$text];
     }
     $this->startDivSection();
     echo '<span class = '.$class.'> '.$text.' </span>';
     $this-> endDivSection();
-
   }
 
-  private function showAddToCart($page, $item){
+  protected function showAddToCart($page, $item){
+  /* 
+  page string
+  item array
+  */
   $line = '';
     if (isset($_SESSION['userName'])){
       $line = '
@@ -49,12 +63,20 @@ abstract class ProductDoc Extends BasicDoc{
   }
 
   private function showProductImage($item, $imagesize){
+    /*
+    item array 
+    imagesize array('width', 'height')
+    */
       $line = '<img src="images\\'.$item['image'].'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].'px;">';
 
       return $line;
   }
 
   private function showProductImageLink($item, $imagesize){
+    /*
+    item array 
+    imagesize array('width', 'height')
+    */
     $line =  '<a class=product_image  href="index.php?page=product-'.$item['name'].'-'.$item['id'].'">';
     $line = $line . $this->showProductImage($item, $imagesize);
     $line = $line .'</a>';
@@ -62,6 +84,7 @@ abstract class ProductDoc Extends BasicDoc{
   }
 
   private function showProductName($item){
+    // item array
     $line = '<h3 class=product_name>
         <a class=product_text href="index.php?page=product-'.$item['name'].'-'.$item['id'].'">
         <span>'.$item['name'].' </span>
@@ -72,6 +95,11 @@ abstract class ProductDoc Extends BasicDoc{
 
 
   private function showProductMenu($page, $items, $imagesize){
+    /*
+    page string
+    item array 
+    imagesize array('width', 'height')
+    */
     $line = '';
     if(isset($this->data['dbError'])){
       $line = 'Database kan momenteel niet bereikt worden';

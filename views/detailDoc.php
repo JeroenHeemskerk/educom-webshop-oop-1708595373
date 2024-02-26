@@ -19,6 +19,7 @@ class DetailDoc Extends ProductDoc{
     $this -> showSpanText('', 'name', $item);
     $this -> showSpanText('', 'description', $item);
     $this -> showSpanText('price', 'price', $item);
+    $this -> showAddToCart('detail', $item);
 
     // add to cart button
     
