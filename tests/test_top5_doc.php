@@ -1,5 +1,5 @@
 <?php
-include_once "../views/webshopDoc.php";
+include_once "../views/top5Doc.php";
 include_once "../db_Repository.php";
 
 
@@ -39,7 +39,7 @@ $myData['page'] = 'top5';
 $myData['menu'] = array('home' => 'Home', 'about' => 'Over mij', 'contact' => 'Contact', 'webshop' => 'WEBSHOP', 'top' => 'TOP 5');
         
 
-$view = new WebshopDoc($myData);
+$view = new Top5Doc($myData);
 
 $view  -> show();
 
