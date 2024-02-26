@@ -4,8 +4,11 @@ require_once('views/homeDoc.php');
 require_once('views/aboutDoc.php');
 require_once('views/contactDoc.php');
 require_once('views/webshopDoc.php');
+require_once('views/cartDoc.php');
 require_once('views/top5Doc.php');
 require_once('views/registerDoc.php');
+require_once('views/loginDoc.php');
+require_once('views/passwordDoc.php');
 require('session_Manager.php');
 require('home.php');
 require('about.php');
@@ -65,6 +68,7 @@ function processRequest($page){
     case 'login':
       $data['inputText'] = postDataLogin();
       $data['inputError'] = formCheckLogin($data['inputText']);
+      $data['page'] = $data['inputError']['page'];
       break;
     case 'password':
       $data['inputText'] = postDataPassword();
@@ -87,6 +91,7 @@ function processRequest($page){
       break;
     case 'cart':
       $basket = handleActions();
+      var_dump($basket);
       $data = array_merge($basket, $data);
       break;
     case 'top':
@@ -199,9 +204,17 @@ function showResponsePage($data) {
     case 'top':
       $view = new Top5Doc($data);
       break;
+    case 'cart':
+      $view = new CartDoc($data);
+      break;
     case 'register':
       $view = new RegisterDoc($data);
-      var_dump($data); 
+      break;
+    case 'login':
+      $view = new LoginDoc($data);
+      break;
+    case 'password':
+      $view = new PasswordDoc($data);
       break;
   }
   $view  -> show();

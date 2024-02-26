@@ -41,7 +41,7 @@ abstract class ProductDoc Extends BasicDoc{
       <form action="index.php?page="'.$page.'" method="POST">
       <input type="hidden" name="page" value="'.$page.'">
       <input type="hidden" name="action" value="addToCart">
-      <input type="hidden" name="id" value="'.$id.'">
+      <input type="hidden" name="id" value="'.$item['id'].'">
       <button type="submit">Toevoegen aan bestelling</button>
       </form>';
     }
@@ -90,8 +90,7 @@ abstract class ProductDoc Extends BasicDoc{
         <div class=product_price>
         <span class=price>&euro;'.$item['price'].'  </span>
         </div>';
-        // if logged in 
-        //$line = $line.this->showAddToCar('webshop', $item['id']);
+        $line = $line . $this-> showAddToCart($page, $item);
       }
       $line = $line .'</article>
       </li>';

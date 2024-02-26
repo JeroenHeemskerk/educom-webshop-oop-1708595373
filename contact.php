@@ -129,11 +129,11 @@ function formCheckContact($formInputs) {
   // the message
   $errors['message'] = checkFieldContent($formInputs['message'], $errors['message']);
   // the communication method
-  $errors['communcation'] = checkFieldContent($formInputs['communication'], $errors['communication']);
+  $errors['communication'] = checkFieldContent($formInputs['communication'], $errors['communication']);
   
-  if ($formInputs['communcation'] == "email") {
+  if ($formInputs['communication'] == "email") {
     $errors['email'] = checkFieldContent($formInputs['email'], $errors['email']);
-  } elseif ($formInputs['communcation'] == "phone") {
+  } elseif ($formInputs['communication'] == "phone") {
     $errors['phonenumber'] = checkFieldContent($formInputs['phonenumber'], $errors['phonenumber']);
   } elseif ($formInputs['communication'] == "post"){
     $postRequired = true;

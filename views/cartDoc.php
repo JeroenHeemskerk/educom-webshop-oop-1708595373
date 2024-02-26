@@ -21,8 +21,12 @@ class CartDoc Extends ProductDoc{
     $this -> startDivSection('cartItem');
     $this -> showSPanText('cartText', '');
     $this -> showSpanText('cartText', 'Product');
-    $this -> showSpanText('cartText', 'Aantal')
+    $this -> showSpanText('cartText', 'Aantal');
     $this -> showSpanText('cartText', 'Prijs');
+    // And now for getting the cart content in here
+
+
+
     $this -> endDivSection();
 
     // if there's actual content

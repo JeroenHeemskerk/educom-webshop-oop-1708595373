@@ -9,27 +9,27 @@ function postDataLogin(){
 
 function formCheckLogin($formInputs){
   // array is mail, password
-  $errors = array('emailErr' => '', 'passwordErr' => '');
+  $errors = array('email' => '', 'password' => '');
   $userAuth = false;
   $userData = '';
   //first, lets check if there's any input
-  $errors['emailErr'] = checkFieldContent($formInputs['email']);
-  $errors['passwordErr'] = checkFieldContent($formInputs['password']);
+  $errors['email'] = checkFieldContent($formInputs['email']);
+  $errors['password'] = checkFieldContent($formInputs['password']);
   // check if there is an error message present
-  if (!$errors['emailErr'] || !$errors['passwordErr']){
+  if (!$errors['email'] || !$errors['password']){
     try {
     $userData = authenticateUser($formInputs['email'], $formInputs['password']);
     doLoginUser($userData['user'], $userData['email']);
     $errors['page']= 'home';
     return  $errors;
     } catch (exception $e) {
-      $errors['emailErr'] = 'Er is een probleem met de server, probeer later nog eens';
-      logErrors('Connection failed'.$e);
+      $errors['email'] = 'Er is een probleem met de server, probeer later nog eens';
+      logors('Connection failed'.$e);
     }
   }
   // check if there are any errors present, if not it means an input was incorrect
-  if (!$errors['emailErr'] && !$errors['passwordErr']){
-    $errors['emailErr'] = 'De email of wachtword is incorrect';
+  if (!$errors['email'] && !$errors['password']){
+    $errors['email'] = 'De email of wachtword is incorrect';
   }
   $errors['page'] = 'login';
   return $errors;
@@ -50,12 +50,12 @@ function showContentLogin($formInputs){
   <div> 
     <label for="name"> Email:</label> 
     <input type="text" name="email" value="'.$formInputs['email'].'" id="email">
-    <span class="error">* '.$formInputs['emailErr'].'</span>
+    <span class="error">* '.$formInputs['email'].'</span>
   </div>
     <div> 
     <label for="password"> Wachtword:</label> 
     <input type="text" name="password" value="'.$formInputs['password'].'" id="password">
-    <span class="error">* '.$formInputs['passwordErr'].'</span>
+    <span class="error">* '.$formInputs['password'].'</span>
   </div>
   <div>
     <input class = "submit" type="submit" value="Submit">
