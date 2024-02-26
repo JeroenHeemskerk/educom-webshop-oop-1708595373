@@ -13,7 +13,7 @@ abstract class ProductDoc Extends BasicDoc{
 
   private function showProductImage($item, $imagesize){
       $line =  '<a class=product_image  href="index.php?page=product-'.$item['name'].'-'.$item['id'].'"> 
-      <img src="..\\images\\'.$item['image'].'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].';"> 
+      <img src="..\\images\\'.$item['image'].'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].'px;"> 
       </a>';
       return $line;
   }
