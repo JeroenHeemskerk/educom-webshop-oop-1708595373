@@ -108,6 +108,7 @@ classDiagram
         #showProductPrice()
         #showProductName()
         #showProductDescription()
+        #showCartButton()
     }
 
     class WebshopDoc{
