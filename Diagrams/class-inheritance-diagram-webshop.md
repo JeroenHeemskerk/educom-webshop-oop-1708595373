@@ -68,6 +68,8 @@ classDiagram
         #showFormStart()
         #showFormField()
         $showFormEnd()
+        -showInputSectionStart()
+        -showInputSectionEnd()
         #showSubmitButton()
         #showFormEnd()
     }
