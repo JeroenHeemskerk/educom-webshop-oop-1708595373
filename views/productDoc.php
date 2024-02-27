@@ -27,37 +27,7 @@ abstract class ProductDoc Extends BasicDoc{
     }
   }
 
-  //maybe move these up a class later
-  protected function startDivSection($class=''){
-    /* 
-    class string
-    */ 
-    echo '<div class="'.$class.'">';
-  }
-  
-  protected function endDivSection(){
-    echo '</div>';
-  }
 
-  protected function showSpanTextMulti($class, $text, $item=''){
-    foreach ($text as $line){
-      $this -> showSpanText($class, $line);
-    }
-  }
-
-  protected function showSpanText($class, $text, $item=''){
-    /* 
-    class string
-    text string
-    item array
-    */
-    if (!empty($item)){
-      $text = $item[$text];
-    }
-    $this->startDivSection();
-    echo '<span class = '.$class.'> '.$text.' </span>';
-    $this-> endDivSection();
-  }
 
   protected function showAddToButton($page, $item=''){
   /* 
