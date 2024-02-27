@@ -30,7 +30,6 @@ classDiagram
       #getPostVar()
       #getUrlVar()
       +createMenu()
-      -newMenuItem()
       #isLoggedIn()
     }
 
