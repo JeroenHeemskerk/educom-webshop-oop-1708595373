@@ -45,7 +45,7 @@ classDiagram
     -updatePassword()
     }
 
-    class ShopMode{
+    class ShopModel{
     +products
     +product
     +cartLines
