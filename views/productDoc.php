@@ -8,14 +8,23 @@ abstract class ProductDoc Extends BasicDoc{
     */
     $page = $this->data['page']; 
     $items = $this->data['items'];
-    $line = '';
+    echo '';
     if($type == 'menu'){
-      $line = $line . $this->showProductMenu($page, $items, $imagesize);
+      $this->showProductMenu($page, $items, $imagesize);
     } else if ($type == 'detail'){
       $item = $this->data['items'][0];
-      $line = $line . $this->showProductImage($item, $imagesize);
+      $this->showProductImage($item, $imagesize);
+    } else { //in this case this being basket
+      if(isset($items['basket'])){
+        foreach($items['basket'] as $key => $content){
+          $display = $content[0];
+          $this->showProductImageLink($display, $imagesize);
+          $this -> showSpanText('cartText', $display['name']);
+          $this -> showSpanText('cartText', $content['count']);
+          $this -> showSpanText('cartText',  '&euro;'.$display['price']);
+        }
+      }
     }
-    echo $line;
   }
 
   //maybe move these up a class later
@@ -44,22 +53,31 @@ abstract class ProductDoc Extends BasicDoc{
     $this-> endDivSection();
   }
 
-  protected function showAddToCart($page, $item){
+  protected function showAddToButton($page, $item=''){
   /* 
   page string
   item array
   */
-  $line = '';
+  if ($page == 'cart'){
+    $action = 'placeOrder';
+    $text = 'Plaats bestelling';
+    $id = 'id';
+  } else{
+    $action = 'addToCart';
+    $text = 'Toevoegen aan bestelling';
+    $id = $item['id'];
+  }
+
+  echo '';
     if (isset($_SESSION['userName'])){
-      $line = '
-      <form action="index.php?page="'.$page.'" method="POST">
-      <input type="hidden" name="page" value="'.$page.'">
-      <input type="hidden" name="action" value="addToCart">
-      <input type="hidden" name="id" value="'.$item['id'].'">
-      <button type="submit">Toevoegen aan bestelling</button>
+      echo '
+      <form action="index.php?page="cart" method="POST">
+      <input type="hidden" name="page" value="cart">
+      <input type="hidden" name="action" value="'.$action.'">
+      <input type="hidden" name="id" value="'.$id.'">
+      <button type="submit">'.$text.'</button>
       </form>';
     }
-    return $line;
   }
 
   private function showProductImage($item, $imagesize){
@@ -67,9 +85,8 @@ abstract class ProductDoc Extends BasicDoc{
     item array 
     imagesize array('width', 'height')
     */
-      $line = '<img src="images\\'.$item['image'].'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].'px;">';
+      echo '<img src="images\\'.$item['image'].'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].'px;">';
 
-      return $line;
   }
 
   private function showProductImageLink($item, $imagesize){
@@ -77,20 +94,18 @@ abstract class ProductDoc Extends BasicDoc{
     item array 
     imagesize array('width', 'height')
     */
-    $line =  '<a class=product_image  href="index.php?page=product-'.$item['name'].'-'.$item['id'].'">';
-    $line = $line . $this->showProductImage($item, $imagesize);
-    $line = $line .'</a>';
-    return $line;
+    echo  '<a class=product_image  href="index.php?page=product-'.$item['name'].'-'.$item['id'].'">';
+    $this->showProductImage($item, $imagesize);
+    echo '</a>';
   }
 
   private function showProductName($item){
     // item array
-    $line = '<h3 class=product_name>
+    echo '<h3 class=product_name>
         <a class=product_text href="index.php?page=product-'.$item['name'].'-'.$item['id'].'">
         <span>'.$item['name'].' </span>
         </a>
       </h3>';
-    return $line;
   }
 
 
@@ -100,33 +115,29 @@ abstract class ProductDoc Extends BasicDoc{
     item array 
     imagesize array('width', 'height')
     */
-    $line = '';
+    echo '';
     if(isset($this->data['dbError'])){
-      $line = 'Database kan momenteel niet bereikt worden';
+      echo 'Database kan momenteel niet bereikt worden';
     }
-    $line = '<ul class=items>';
+    echo '<ul class=items>';
     foreach ($items as $item) {
-      $line = $line .'
+      echo '
       <li class=product_webshop>
       <br>
       <article>'; 
-      $line = $line.$this->showProductImageLink($item, $imagesize); 
-      $line = $line.$this->showProductName($item);
+      $this->showProductImageLink($item, $imagesize); 
+      $this->showProductName($item);
 
       if ($page == 'webshop'){
-      $line = $line .'
+      echo '
         <div class=product_price>
         <span class=price>&euro;'.$item['price'].'  </span>
         </div>';
-        $line = $line . $this-> showAddToCart($page, $item);
+        $this-> showAddToButton($page, $item);
       }
-      $line = $line .'</article>
+      echo '</article>
       </li>';
     }
-    $line = $line . '</ul>';
-    return $line;
-
+    echo '</ul>';
   }
-
-
 }

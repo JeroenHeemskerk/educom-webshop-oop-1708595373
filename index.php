@@ -91,9 +91,7 @@ function processRequest($page){
       $data['page'] = 'product';
       break;
     case 'cart':
-      $basket = handleActions();
-      var_dump($basket);
-      $data = array_merge($basket, $data);
+      $data['items'] =  handleActions();
       break;
     case 'top':
       $data['items'] = handleTop();
@@ -156,9 +154,9 @@ function handleActions(){
   foreach ($basket as $id => $content){
    try{
     $item = getItemsFromDB('name, price, image, id', 'products', 'id='.$id);
-    $basketContents[$id] = $item;
-    $basketContents[$id]['count'] = $basket[$id];
-    $basketContents['costs'] += $content * $basketContents[$id][0]['price'];
+    $basketContents['basket'][$id] = $item;
+    $basketContents['basket'][$id]['count'] = $basket[$id];
+    $basketContents['costs'] += $content * $basketContents['basket'][$id][0]['price'];
     } catch (exception $e) {$basket['error'] = 'Database momenteel niet bereikbaar';
     logErrors($e->getMessage());}
   }
