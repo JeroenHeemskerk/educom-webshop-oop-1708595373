@@ -38,6 +38,9 @@ classDiagram
     +validateLogin()
     -authenticateUser()
     +doLoginUser()
+    +doLogoutUser()
+    +validateUpdatePassword()
+    -updatePassword()
     }
 
 
