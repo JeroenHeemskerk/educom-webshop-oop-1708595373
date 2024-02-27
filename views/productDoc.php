@@ -39,6 +39,12 @@ abstract class ProductDoc Extends BasicDoc{
     echo '</div>';
   }
 
+  protected function showSpanTextMulti($class, $text, $item=''){
+    foreach ($text as $line){
+      $this -> showSpanText($class, $line);
+    }
+  }
+
   protected function showSpanText($class, $text, $item=''){
     /* 
     class string
