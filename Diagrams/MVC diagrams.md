@@ -32,5 +32,13 @@ classDiagram
       #isLoggedIn()
     }
 
+    class UserModel{
+    +meta
+    +errors
+    +validateLogin()
+    -authenticateUser()
+    +doLoginUser()
+    }
+
 
 ```
