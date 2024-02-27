@@ -85,7 +85,6 @@ class BasicDoc extends HtmlDoc {
     $this -> showFooter();
   }
 
-    //maybe move these up a class later
     protected function startDivSection($class=''){
       /* 
       class string
