@@ -5,6 +5,8 @@ title: MVC Class Inheritance Diagram - Webshop
 classDiagram
     note "+ = public, - = private, # = protected"
     %% A <|-- B means that class B inherits from class A %%
+    PageModel <|-- UserModel
+    PageModel <|-- ShopModel
 
     class PageController{
       -model
@@ -41,6 +43,19 @@ classDiagram
     +doLogoutUser()
     +validateUpdatePassword()
     -updatePassword()
+    }
+
+    class ShopMode{
+    +products
+    +product
+    +cartLines
+    +cartTotal
+    #handleCartActions()
+    -addToBasket()
+    -placeOrder()
+    +getWebshopData()
+    +getDetailData()
+    +getCartLines()
     }
 
 
