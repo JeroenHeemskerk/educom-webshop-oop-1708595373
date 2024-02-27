@@ -1,4 +1,14 @@
 <?php
+
+require_once('controllers/PageController.php');
+
+$controller = new PageController();
+$controller -> handleRequest();
+
+
+
+
+/*
 //load in required external functions
 require_once('views/homeDoc.php');
 require_once('views/aboutDoc.php');
@@ -220,11 +230,11 @@ function showResponsePage($data) {
       break;
   }
   $view  -> show();
-  /*
+  
   showDocumentStart(); 
   showHeadSection($page); 
   showBodySection($page); 
-  showDocumentEnd(); */
+  showDocumentEnd(); 
 }     
 
 function showDocumentStart() { 
@@ -380,6 +390,6 @@ function showFooter(){
   echo '<footer> 
   &#169; - 2024 - Milan Lucas
   </footer> ';
-}
+}*/
 
 ?>
