@@ -34,8 +34,10 @@ abstract class FormDoc Extends BasicDoc{
   }
 
   protected function showFormField($id, $label, $type = 'text', $options=''){
+
     $content = $this->data->meta[$id];
     $error = $this->data->errors[$id];
+
     $line = $this->showInputSectionStart($id, $label);
     if ($type == 'text'){ 
       $line = $line . '<input type = '.$type.' name='.$id.' value= "'.$content.'" id="'.$id.'"' ;
@@ -45,7 +47,10 @@ abstract class FormDoc Extends BasicDoc{
       $line = $line . '<select id="'.$id.'" name="'.$id.'">
       <option value=""></option>';
       foreach ($options as $id =>  $display){
-        $line = $line . '<option value="'.$id.'" '.($content == "'.$id.'"   ? "selected" : "").' >'.$display.'.</option> ';
+
+        $selected = $content == $id ? 'selected' : '';
+
+        $line = $line . '<option value="'.$id.'" '. $selected.' >'.$display.'.</option> ';
       }
       $line = $line . '</select>';
     } else {

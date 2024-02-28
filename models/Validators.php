@@ -9,37 +9,43 @@ class Validators{
       //If communication method is post, we also need to add a bunch of checks, we'll track the need for it with
       $postRequired = false;
       // First are the required inputs, these can't be empty
-      $errors['title'] = $this->checkFieldContent($inputs['title'], $errors['title']);
-      $errors['name'] = $this->checkFieldContent($inputs['name'], $errors['name']);
-      $errors['message'] = $this->checkFieldContent($inputs['message'], $errors['message']);
-      $errors['communication'] = $this->checkFieldContent($inputs['communication'], $errors['communication']);
+      // So one thing I am noticing is that I am calling on the same bit of code (checkFieldContent) in a lot of places
+      // I think we can make that compacter
+      $inputsToCheck = array('title' =>'', 'name'=>'', 'message'=>'', 'communication'=>'');
 
       //And now to check the fields required through communicaiton
       if ($inputs['communication'] == "email") {
-        $errors['email'] = $this->checkFieldContent($inputs['email']);
+        $inputsToCheck['email'] = '';
       } elseif ($inputs['communication'] == "phone") {
-        $errors['phonenumber'] = $this->checkFieldContent($inputs['phonenumber']);
+        $inputsToCheck['phonenumber'] = '';
       } elseif ($inputs['communication'] == "post"){
         $postRequired = true;
       }
-
       $postData = array($inputs['street'], $inputs['housenumber'], $inputs['postalcode'], $inputs['city']);
       //passing along post required in case it was already said to true
       $postRequired = $this->checkArrayNotEmpty($postData, $postRequired);
 
       if ($postRequired) {
-        //Validating postal code
-        $errors['postalcode'] = $this->checkPostalCode($inputs['postalcode']);
-        //in order street, housenumber, postalcode, city
-        $errors['street'] = $this->checkFieldContent($inputs['street']);
-        $errors['housenumber'] = $this->checkFieldContent($inputs['housenumber']);
-        $errors['postalcode'] = $this->checkFieldContent($inputs['postalcode']);
-        $errors['city'] = $this->checkFieldContent($inputs['city']);
+        $inputsToCheck['street'] = '';
+        $inputsToCheck['housenumber'] = '';
+        $inputsToCheck['postalcode'] = '';
+        $inputsToCheck['city'] = '';
+      }
+      foreach ($inputsToCheck as $key => $value) {
+        $errors[$key] = $this->checkFieldContent($inputs[$key], $errors[$key]);
       }
 
-      if (empty($formInputs['email'] == false)){ 
-        $errors['email'] = checkEmail($formInputs['email']);
+      // if postalcode isn't empty, check postalcode
+      if (empty($inputs['postalcode'] == false)){ 
+        $errors['postalcode'] = $this->checkPostalCode($inputs['postalcode']);
       }
+      //same for meail
+      if (empty($inputs['email'] == false)){ 
+        $errors['email'] = $this->checkEmail($inputs['email']);
+      }
+
+      // Lastly check if any errors are present
+      var_dump(count(array_unique($errors, SORT_REGULAR)));
 
 
     }
@@ -51,8 +57,8 @@ class Validators{
       if ($value != '') {
         $flag = true;
       }
-    return $flag;
     }
+    return $flag;
   }
 
   
@@ -60,7 +66,7 @@ class Validators{
     if (empty($data)) $err = $err."Dit veld moet ingevuld worden"; 
     return $err;
   }
-  /*
+  
   private function checkEmail($email, $err=''){
     if (filter_var($email, FILTER_VALIDATE_EMAIL)){
       $err = '';
@@ -68,7 +74,7 @@ class Validators{
      $err = 'Dit is geen geldig email address';
     }
     return $err;
-  }*/
+  }
 
   private function checkPostalCode($postalCode, $err=''){
     $postRegex = "/^[0-9]{4}\s[A-z]{2}$/";
