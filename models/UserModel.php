@@ -17,6 +17,8 @@ class UserModel extends PageModel{
     if ($this->page == 'contact'){
       $this->meta =array('title' => '', 'name' => '', 'email' => '', 'phonenumber' => '', 'street' => '', 
       'housenumber' => '', 'postalcode' => '', 'city' => '', 'communication' => '', 'message' => '');
+    }elseif ($this->page == 'login'){
+      $this->meta = array('email' => '', 'password' => '');
     }
     //There's only info to fill them with if it is a post
     if ($this->isPost){
@@ -27,12 +29,12 @@ class UserModel extends PageModel{
   }
 
   public function getErrors(){
-
     if ($this->page == 'contact'){
       $this->errors =array('title' => '*', 'name' => '*', 'email' => '', 'phonenumber' => '', 'street' => '', 
       'housenumber' => '', 'postalcode' => '', 'city' => '', 'communication' => '*', 'message' => '*');
+    } elseif ($this->page == 'login'){
+      $this->errors = array('email' => '*', 'password' => '*');
     }
-
     // a more thorough check is only necessary if it is a POST request
     if ($this->isPost){
       $validators = new Validators();

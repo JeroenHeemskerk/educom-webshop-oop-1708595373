@@ -26,9 +26,15 @@ class PageController{
         $this->model = new UserModel($this->model);
         $this->model->getInputs();
         $this->model->getErrors();
-        if(isset($this->model->errors)){
+        if(isset($this->model->errors['page'])){
           $this->model->page = 'thank';
         }
+        break;
+      case 'login':
+        $this->model = new UserModel($this->model);
+        $this->model->getInputs();
+        $this->model->getErrors();
+        break;
     }
   }
 
@@ -50,6 +56,10 @@ class PageController{
       case 'thank':
         require_once('views/thanksDoc.php');
         $view = new ThanksDoc($this->model);
+        break;
+      case 'login':
+        require_once('views/loginDoc.php');
+        $view = new LoginDoc($this->model);
         break;
     }
     $view->show();

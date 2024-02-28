@@ -34,7 +34,6 @@ abstract class FormDoc Extends BasicDoc{
   }
 
   protected function showFormField($id, $label, $type = 'text', $options=''){
-
     $content = $this->data->meta[$id];
     $error = $this->data->errors[$id];
 

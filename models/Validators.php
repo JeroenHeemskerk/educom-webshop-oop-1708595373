@@ -50,6 +50,9 @@ class Validators{
         $errors['page'] = 'thanks';
       }
     }
+
+
+    
     return $errors;
 }
 
