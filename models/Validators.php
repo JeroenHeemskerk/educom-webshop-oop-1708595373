@@ -45,9 +45,10 @@ class Validators{
       }
 
       // Lastly check if any errors are present
-      var_dump(count(array_unique($errors, SORT_REGULAR)));
-
-
+      $redirect = (count(array_unique($errors, SORT_REGULAR)) == 2);
+      if($redirect){
+        $errors['page'] = 'thanks';
+      }
     }
     return $errors;
 }

@@ -29,8 +29,5 @@ require_once('formDoc.php');
     $this -> showFormField('communication', 'Hoe wilt u communiceren?', 'select', array('email'=> 'Email', 'phone'=>'Telefoon', 'post'=> 'Post'));
     $this -> showFormField('message', 'Waarom wilt u contact opnemen?', 'textarea', array('rows' => 4, 'cols' => 50));
   }
-
 } 
-
-
 ?>

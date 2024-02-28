@@ -47,9 +47,7 @@ abstract class FormDoc Extends BasicDoc{
       $line = $line . '<select id="'.$id.'" name="'.$id.'">
       <option value=""></option>';
       foreach ($options as $id =>  $display){
-
         $selected = $content == $id ? 'selected' : '';
-
         $line = $line . '<option value="'.$id.'" '. $selected.' >'.$display.'.</option> ';
       }
       $line = $line . '</select>';
