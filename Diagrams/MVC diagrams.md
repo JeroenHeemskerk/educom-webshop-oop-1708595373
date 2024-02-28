@@ -8,6 +8,15 @@ classDiagram
     PageModel <|-- UserModel
     PageModel <|-- ShopModel
 
+    class SessionManager{
+        doLoginUser()
+        doLogoutUser()
+        isUserLoggedIn()
+        getLoggedInUser()
+        makeShopBasket()
+        addToShopBasket()
+    }
+
     class PageController{
       -model
       +__construct()
