@@ -46,6 +46,8 @@ classDiagram
     class UserModel{
     +meta
     +errors
+    -userId
+    +valid
     +validateLogin()
     -authenticateUser()
     +doLoginUser()
