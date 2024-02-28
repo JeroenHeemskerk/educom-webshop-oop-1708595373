@@ -20,8 +20,8 @@ class UserModel extends PageModel{
     }
     //There's only info to fill them with if it is a post
     if ($this->isPost){
-      foreach ($this->meta as $query){
-        $this->meta[$query] = $this->getPostVar("$query");
+      foreach ($this->meta as $key => $value){
+        $this->meta[$key] = $this->getPostVar("$key");
       }
     }
   }

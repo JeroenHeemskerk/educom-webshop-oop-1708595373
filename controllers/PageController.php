@@ -20,6 +20,7 @@ class PageController{
   }
 
   private function processRequest(){
+
     switch($this->model->page){  
       case 'contact':
         $this->model = new UserModel($this->model);
