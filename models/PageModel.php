@@ -1,10 +1,10 @@
 <?php
 class PageModel{
   public $page;
-  protected $isPost;
+  protected $isPost = false;
   public $menu;
-  public $errors;
-  public $genericErr;
+  public $errors = array();
+  public $genericErr = '';
   protected $sessionManager;
 
   public function __construct($copy){

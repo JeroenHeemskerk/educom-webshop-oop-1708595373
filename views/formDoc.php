@@ -5,10 +5,9 @@ abstract class FormDoc Extends BasicDoc{
   protected abstract function showFormContent();
 
   protected function showFormStart(){
-    $formValue = $this -> getData()['page'];
     echo '
     <form class="contact" method="POST" action="index.php">
-    <input type="hidden" name="page" value="'.$formValue.'" id="page"/>
+    <input type="hidden" name="page" value="'.$this -> data -> page.'" id="page"/>
     <fieldset class="persoon">';
   }
 
@@ -35,8 +34,8 @@ abstract class FormDoc Extends BasicDoc{
   }
 
   protected function showFormField($id, $label, $type = 'text', $options=''){
-    $content = $this->getData()['inputText'][$id];
-    $error = $this->getData()['inputError'][$id];
+    $content = $this->data->meta[$id];
+    $error = $this->data->errors[$id];
     $line = $this->showInputSectionStart($id, $label);
     if ($type == 'text'){ 
       $line = $line . '<input type = '.$type.' name='.$id.' value= "'.$content.'" id="'.$id.'"' ;

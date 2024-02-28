@@ -1,5 +1,6 @@
 <?php
 require_once('models/PageModel.php');
+require_once('models/UserModel.php');
 
 class PageController{
   private $model;
@@ -19,9 +20,11 @@ class PageController{
   }
 
   private function processRequest(){
-    switch($this->model->page){
-      case 'login':
-        $this->model->setPage('home');
+    switch($this->model->page){  
+      case 'contact':
+        $this->model = new UserModel($this->model);
+        $this->model->getInputs();
+        $this->model->getErrors();
     }
   }
 
@@ -35,6 +38,11 @@ class PageController{
       case 'about':
         require_once('views/aboutDoc.php');
         $view = new AboutDoc($this->model);
+        break;
+      case 'contact':
+        require_once('views/contactDoc.php');
+
+        $view = new ContactDoc($this->model);
         break;
     }
     $view->show();
