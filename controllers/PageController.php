@@ -43,6 +43,9 @@ class PageController{
         $this->model = new UserModel($this->model);
         $this->model->getInputs();
         $this->model->getErrors();
+        break;
+      case'logout':
+        $this->mode->setPage('home');
     }
   }
 

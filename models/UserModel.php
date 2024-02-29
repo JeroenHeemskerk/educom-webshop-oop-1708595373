@@ -19,6 +19,8 @@ class UserModel extends PageModel{
       'housenumber' => '', 'postalcode' => '', 'city' => '', 'communication' => '', 'message' => '');
     }elseif ($this->page == 'login'){
       $this->meta = array('email' => '', 'password' => '');
+    } else {
+      $this->meta = array('oldPass' => '', 'newPass' => '', 'newRepeatPass' => '');
     }
     //There's only info to fill them with if it is a post
     if ($this->isPost){
