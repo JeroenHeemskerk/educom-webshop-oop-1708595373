@@ -8,6 +8,15 @@ classDiagram
     PageModel <|-- UserModel
     PageModel <|-- ShopModel
 
+    class SessionManager{
+        doLoginUser()
+        doLogoutUser()
+        isUserLoggedIn()
+        getLoggedInUser()
+        makeShopBasket()
+        addToShopBasket()
+    }
+
     class PageController{
       -model
       +__construct()
@@ -37,6 +46,8 @@ classDiagram
     class UserModel{
     +meta
     +errors
+    -userId
+    +valid
     +validateLogin()
     -authenticateUser()
     +doLoginUser()
@@ -45,7 +56,7 @@ classDiagram
     -updatePassword()
     }
 
-    class ShopMode{
+    class ShopModel{
     +products
     +product
     +cartLines
