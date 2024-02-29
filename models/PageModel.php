@@ -56,7 +56,7 @@ class PageModel{
     $this->menu['top'] = $this->createMenuItem('top', 'Top 5');
     if ($this->sessionManager->isUserLoggedIn()){
       $this->menu['password'] = $this->createMenuItem('password', 'Wachtwoord veranderen');
-      $this->menu['logout'] = $this->createMenuItem('logout', 'Uitloggen '.$this->sessionManager->getLoggedInUser()['name']);
+      $this->menu['logout'] = $this->createMenuItem('logout', 'Uitloggen '.$this->sessionManager->getLoggedInUser()['user']);
     } else {
       $this->menu['login'] = $this->createMenuItem('login', 'Inloggen');
     }

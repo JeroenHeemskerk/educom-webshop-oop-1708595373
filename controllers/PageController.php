@@ -26,7 +26,7 @@ class PageController{
         $this->model->getInputs();
         $this->model->getErrors();
         if(isset($this->model->errors['page'])){
-          $this->model->page = 'thank';
+          $this->model->setPage('thank');
         }
         break;
       case 'login':
@@ -36,8 +36,13 @@ class PageController{
           //otherwise a correct password stays afloat in the data
           $this->model->meta['password'] = '';
           $this->model->doLoginUser();
+          $this->model->setPage('home');
         }
         break;
+      case 'password':
+        $this->model = new UserModel($this->model);
+        $this->model->getInputs();
+        $this->model->getErrors();
     }
   }
 
@@ -63,6 +68,10 @@ class PageController{
       case 'login':
         require_once('views/loginDoc.php');
         $view = new LoginDoc($this->model);
+        break;
+      case 'password':
+        require_once('views/passwordDoc.php');
+        $view = new PasswordDoc($this->model);
         break;
     }
     $view->show();
