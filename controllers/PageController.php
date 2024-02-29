@@ -20,7 +20,6 @@ class PageController{
   }
 
   private function processRequest(){
-
     switch($this->model->page){  
       case 'contact':
         $this->model = new UserModel($this->model);
@@ -32,8 +31,12 @@ class PageController{
         break;
       case 'login':
         $this->model = new UserModel($this->model);
-        $this->model->getInputs();
-        $this->model->getErrors();
+        $this->model->validateLogin();
+        if($this->model->valid){
+          //otherwise a correct password stays afloat in the data
+          $this->model->meta['password'] = '';
+          $this->model->doLoginUser();
+        }
         break;
     }
   }

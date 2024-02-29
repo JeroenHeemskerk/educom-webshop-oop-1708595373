@@ -33,13 +33,45 @@ class UserModel extends PageModel{
       $this->errors =array('title' => '*', 'name' => '*', 'email' => '', 'phonenumber' => '', 'street' => '', 
       'housenumber' => '', 'postalcode' => '', 'city' => '', 'communication' => '*', 'message' => '*');
     } elseif ($this->page == 'login'){
-      $this->errors = array('email' => '*', 'password' => '*');
+      $this->errors = array('email' => '*', 'password' => '*', 'valid' => false);
     }
     // a more thorough check is only necessary if it is a POST request
     if ($this->isPost){
-      $validators = new Validators();
-      $this->errors = $validators->validateInputs($this->page, $this->meta, $this->errors);
+      $this->errors = Validators::validateInputs($this->page, $this->meta, $this->errors);
     }
+  }
+
+  public function validateLogin(){
+    $this->getInputs();
+    $this->getErrors();
+    if (!$this->errors['valid']){
+      return;
+    } else {
+      $this->authUser();
+    }
+  }
+
+  private function authUser(){
+    require_once('db_Repository.php');
+    $userInfo = findUserByEmailDB($this->meta['email']);
+    //userInfo is only null if there was an error in the database
+    // otherwise its an array
+    if (!isset($userInfo)){
+      return $userInfo;}
+    //check if password overlaps with the password in $userInfo
+    if ($this->passwordDecrypt($this->meta['password'], $userInfo['password'])){ 
+      $this->meta['name'] = $userInfo['user'];
+      $this->userId = $userInfo['id'];
+      $this->valid = true;
+    }
+  }
+
+  private function passwordDecrypt($password, $hash){
+    return password_verify($password, $hash);
+  }
+
+  public function doLoginUser(){
+    $this->sessionManager->doLoginUser($this->meta['name'], $this->meta['email'], $this->userId);
   }
 
 }

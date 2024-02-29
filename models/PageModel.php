@@ -9,7 +9,7 @@ class PageModel{
 
   public function __construct($copy){
     if (empty($copy)){
-      require_once('sessionManager.php');
+      require_once('models/sessionManager.php');
       $this->sessionManager = new SessionManager();
     } else {
       $this->page = $copy->page;
@@ -55,8 +55,8 @@ class PageModel{
     $this->menu['webshop'] = $this->createMenuItem('webshop', 'Webshop');
     $this->menu['top'] = $this->createMenuItem('top', 'Top 5');
     if ($this->sessionManager->isUserLoggedIn()){
-      $this->menu['logout'] = $this->createMenuItem('logout', 'Uitloggen '.$this->sessionManager->getLoggedInUser()['name']);
       $this->menu['password'] = $this->createMenuItem('password', 'Wachtwoord veranderen');
+      $this->menu['logout'] = $this->createMenuItem('logout', 'Uitloggen '.$this->sessionManager->getLoggedInUser()['name']);
     } else {
       $this->menu['login'] = $this->createMenuItem('login', 'Inloggen');
     }
