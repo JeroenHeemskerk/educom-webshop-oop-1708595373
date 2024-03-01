@@ -32,7 +32,6 @@ class PageController{
       case 'login':
         $this->model = new UserModel($this->model);
         $this->model->validateLogin();
-        var_dump($this->model->page);
         if($this->model->valid){
           //otherwise a correct password stays afloat in the data
           $this->model->meta['password'] = '';
@@ -40,6 +39,15 @@ class PageController{
           $this->model->setPage('home');
         }
         break;
+      case 'register':{
+        $this->model = new UserModel($this->model);
+        $this->model->getInputs();
+        $this->model->getErrors();
+        if($this->model->errors['valid']){
+          $this->model->doRegisterUser();
+        }
+        break;
+      }
       case 'password':
         $this->model = new UserModel($this->model);
         $this->model->getInputs();
@@ -75,6 +83,11 @@ class PageController{
         require_once('views/thanksDoc.php');
         $view = new ThanksDoc($this->model);
         break;
+      case 'register':{
+        require_once('views/registerDoc.php');
+        $view = new RegisterDoc($this->model);
+        break;
+      }
       case 'login':
         require_once('views/loginDoc.php');
         $view = new LoginDoc($this->model);

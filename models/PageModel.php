@@ -59,15 +59,13 @@ class PageModel{
       $this->menu['logout'] = $this->createMenuItem('logout', 'Uitloggen '.$this->sessionManager->getLoggedInUser()['user']);
     } else {
       $this->menu['login'] = $this->createMenuItem('login', 'Inloggen');
+      $this->menu['register'] = $this->createMenuItem('register', 'Aanmelden');
     }
-
-
   }
 
   private function createMenuItem($page, $pageName){
     return '<li><a href="index.php?page='.$page.'">'.$pageName.'</a></li>';
   }
-
 
 }
 

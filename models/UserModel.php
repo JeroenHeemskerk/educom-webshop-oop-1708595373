@@ -19,6 +19,8 @@ class UserModel extends PageModel{
       'housenumber' => '', 'postalcode' => '', 'city' => '', 'communication' => '', 'message' => '');
     }elseif ($this->page == 'login'){
       $this->meta = array('email' => '', 'password' => '');
+    } elseif ($this->page == 'register'){
+      $this->meta = array('name'=> '', 'email' => '', 'password' => '', 'repeat' => '');
     } else {
       $this->meta = array('password' => '', 'newPass' => '', 'newRepeatPass' => '');
     }
@@ -36,6 +38,8 @@ class UserModel extends PageModel{
       'housenumber' => '', 'postalcode' => '', 'city' => '', 'communication' => '*', 'message' => '*');
     } elseif ($this->page == 'login'){
       $this->errors = array('email' => '*', 'password' => '*', 'valid' => false);
+    } elseif ($this->page == 'register'){
+      $this->errors = array('name'=>'*', 'email' => '*', 'password' => '*', 'repeat' => '*');
     }else {
       $this->errors = array('password' => '*', 'newPass' => '*', 'newRepeatPass' => '*', 'valid' => false);
     }
@@ -49,7 +53,6 @@ class UserModel extends PageModel{
     $this->getInputs();
     $this->getErrors();
     if (!$this->errors['valid']){
-
       return;
     } else {
       $this->authUser($this->meta['email']);
@@ -77,6 +80,10 @@ class UserModel extends PageModel{
     return password_verify($password, $hash);
   }
 
+  private function passwordEncrypt($password){
+    return password_hash($password, PASSWORD_BCRYPT, ['cost' => 14]);
+  }
+
   public function doLoginUser(){
     $this->sessionManager->doLoginUser($this->meta['name'], $this->meta['email'], $this->userId);
   }
@@ -91,11 +98,33 @@ class UserModel extends PageModel{
     $this->authUser($email);
     if($this->valid){
       require_once('db_Repository.php');
-      updateUserPasswordDB($email, $this->meta['newPass']);
+      $password = self::passwordEncrypt( $this->meta['newPass']);
+      updateUserPasswordDB($email, $password);
       $this->errors['password'] = 'wachtwoord geupdate';
     } else {
       $this->errors['password'] = 'wachtwoord incorrect';
     }
+  }
+
+  public function doRegisterUser(){
+    require_once('db_Repository.php');
+    $this->meta['email'];
+    $this->meta['name'];
+    $this->meta['password'];
+    $check = findUserByEmailDB($this->meta['name']);
+    if(!findUserByEmailDB($this->meta['name'])){
+      self::saveUser();
+      $this->setPage('home');
+    } else {
+      $this->error['email'] = 'Deze email is al geregisteerd';
+    }
+  }
+
+  private function saveUser(){
+    require_once('db_Repository.php');
+    $password = self::passwordEncrypt($this->meta['password']);
+    saveUserDB($this->meta['email'], $this->meta['name'], $password);
+    
   }
 
 }

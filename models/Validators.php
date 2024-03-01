@@ -1,8 +1,8 @@
 <?php
 class Validators{
   public static function validateInputs($page, $inputs, $errors){
-    $ogErrors = $errors;
     $errors['valid'] = false;
+    $ogErrors = $errors;
     //different pages require different error handling
     if ($page == 'contact'){
       // if the contact form is correctly filled/validated it needs to redirect to the Thanks page
@@ -51,20 +51,34 @@ class Validators{
       if($errors == $ogErrors){
         $errors['valid'] = true;
       }
+    } elseif ($page == 'register'){
+      // seperate function to make it easier to look at?
+      $errors = self::validateInputsRegister($inputs, $errors);
     } else {
       //password check is here
       foreach ($inputs as $key => $value) {
         $errors[$key] = self::checkFieldContent($value, $errors[$key]); 
       }
 
-      $passMatch = self::checkPasswordMatch($inputs['newPass'], $inputs['newRepeatPass']);
-      if (!$passMatch){
-        $errors['newPass']='De wachtwoorden zijn niet hetzelfde';}
+       $errors['newPass'] = self::checkPasswordMatch($inputs['newPass'], $inputs['newRepeatPass']);
+
     }
 
     if($errors == $ogErrors){
       $errors['valid'] = true;
     }
+
+    return $errors;
+  }
+
+  private static function validateInputsRegister($inputs, $errors){
+    //$errors['email'] = self::checkFieldContent($inputs['email'], $errors['email']);
+    $errors['name'] = self::checkFieldContent($inputs['name'], $errors['name']);
+    $errors['email'] = self::checkEmail($inputs['email'], $errors['email']);
+    $errors['password'] = self::checkFieldContent($inputs['password'], $errors['password']);
+    $errors['repeat'] = self::checkFieldContent($inputs['repeat'], $errors['repeat']);
+    $errors['password'] = self::checkPasswordMatch($inputs['password'], $inputs['repeat'], $errors['password']);
+    // first check fields
 
     return $errors;
   }
@@ -91,6 +105,8 @@ class Validators{
       } else {
       $err = $err. 'Dit is geen geldig email address';
       }
+    } else {
+      $err = checkFieldContent($email, $err);
     }
     return $err;
   }
@@ -105,10 +121,11 @@ class Validators{
     return $err;
   }
   
-  private static function checkPasswordMatch($password, $repeat){
-    $match = false;
-    if ($password == $repeat) {$match = true;}
-    return $match;
+  private static function checkPasswordMatch($password, $repeat, $err = ''){
+    if ($password != $repeat) {
+      $err = $err. 'Wachtworden zijn niet hetzelfde';
+    }
+    return $err;
   }
 
 }
