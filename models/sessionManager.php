@@ -18,6 +18,10 @@ class SessionManager{
     $_SESSION['id'] = $id;
   }
 
+  public function doLogoutUser(){
+      session_unset();
+  }
+
 }
 
 ?>

@@ -2,6 +2,7 @@
 class Validators{
   public static function validateInputs($page, $inputs, $errors){
     $ogErrors = $errors;
+    $errors['valid'] = false;
     //different pages require different error handling
     if ($page == 'contact'){
       // if the contact form is correctly filled/validated it needs to redirect to the Thanks page
@@ -38,21 +39,31 @@ class Validators{
       $errors['postalcode'] = self::checkPostalCode($inputs['postalcode']);
       //same for mail
       $errors['email'] = self::checkEmail($inputs['email']);
-
       // Lastly check if any errors are present, which is slightly complicated by the fact we got * to display as part of errors
       if($errors == $ogErrors){
         $errors['page'] = 'thanks';
       } 
     } elseif ($page == 'login'){
-      $errors['valid'] = false;
+
       $errors['email'] = self::checkFieldContent($inputs['email'], $errors['email']);
       $errors['email'] = self::checkEmail($inputs['email'], $errors['email']);
       $errors['password'] = self::checkFieldContent($inputs['password'], $errors['password']);
       if($errors == $ogErrors){
         $errors['valid'] = true;
       }
-      //
+    } else {
+      //password check is here
+      foreach ($inputs as $key => $value) {
+        $errors[$key] = self::checkFieldContent($value, $errors[$key]); 
+      }
 
+      $passMatch = self::checkPasswordMatch($inputs['newPass'], $inputs['newRepeatPass']);
+      if (!$passMatch){
+        $errors['newPass']='De wachtwoorden zijn niet hetzelfde';}
+    }
+
+    if($errors == $ogErrors){
+      $errors['valid'] = true;
     }
 
     return $errors;
@@ -94,6 +105,11 @@ class Validators{
     return $err;
   }
   
+  private static function checkPasswordMatch($password, $repeat){
+    $match = false;
+    if ($password == $repeat) {$match = true;}
+    return $match;
+  }
 
 }
 ?>

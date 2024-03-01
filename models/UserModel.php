@@ -20,7 +20,7 @@ class UserModel extends PageModel{
     }elseif ($this->page == 'login'){
       $this->meta = array('email' => '', 'password' => '');
     } else {
-      $this->meta = array('oldPass' => '', 'newPass' => '', 'newRepeatPass' => '');
+      $this->meta = array('password' => '', 'newPass' => '', 'newRepeatPass' => '');
     }
     //There's only info to fill them with if it is a post
     if ($this->isPost){
@@ -36,6 +36,8 @@ class UserModel extends PageModel{
       'housenumber' => '', 'postalcode' => '', 'city' => '', 'communication' => '*', 'message' => '*');
     } elseif ($this->page == 'login'){
       $this->errors = array('email' => '*', 'password' => '*', 'valid' => false);
+    }else {
+      $this->errors = array('password' => '*', 'newPass' => '*', 'newRepeatPass' => '*', 'valid' => false);
     }
     // a more thorough check is only necessary if it is a POST request
     if ($this->isPost){
@@ -47,15 +49,16 @@ class UserModel extends PageModel{
     $this->getInputs();
     $this->getErrors();
     if (!$this->errors['valid']){
+
       return;
     } else {
-      $this->authUser();
+      $this->authUser($this->meta['email']);
     }
   }
 
-  private function authUser(){
+  private function authUser($email){
     require_once('db_Repository.php');
-    $userInfo = findUserByEmailDB($this->meta['email']);
+    $userInfo = findUserByEmailDB($email);
     //userInfo is only null if there was an error in the database
     // otherwise its an array
     if (!isset($userInfo)){
@@ -74,6 +77,23 @@ class UserModel extends PageModel{
 
   public function doLoginUser(){
     $this->sessionManager->doLoginUser($this->meta['name'], $this->meta['email'], $this->userId);
+  }
+
+  public function doLogoutUser(){
+    $this->sessionManager->doLogoutUser();
+  }
+
+  public function doUpdatePassword(){
+    // gotta authenticate user to check if the new password is correct
+    $email = $this->sessionManager->getLoggedInUser()['email'];
+    $this->authUser($email);
+    if($this->valid){
+      require_once('db_Repository.php');
+      updateUserPasswordDB($email, $this->meta['newPass']);
+      $this->errors['password'] = 'wachtwoord geupdate';
+    } else {
+      $this->errors['password'] = 'wachtwoord incorrect';
+    }
   }
 
 }

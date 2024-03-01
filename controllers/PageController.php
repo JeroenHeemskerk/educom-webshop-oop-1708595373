@@ -32,6 +32,7 @@ class PageController{
       case 'login':
         $this->model = new UserModel($this->model);
         $this->model->validateLogin();
+        var_dump($this->model->page);
         if($this->model->valid){
           //otherwise a correct password stays afloat in the data
           $this->model->meta['password'] = '';
@@ -43,9 +44,15 @@ class PageController{
         $this->model = new UserModel($this->model);
         $this->model->getInputs();
         $this->model->getErrors();
+        if($this->model->errors['valid']){
+          $this->model->doUpdatePassword();
+        }
         break;
       case'logout':
-        $this->mode->setPage('home');
+        $this->model = new UserModel($this->model);
+        $this->model->doLogoutUser();
+        $this->model->setPage('home');
+        break;
     }
   }
 

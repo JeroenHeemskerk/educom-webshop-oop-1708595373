@@ -18,7 +18,7 @@ class PasswordDoc Extends FormDoc{
 
 
   protected function showFormContent(){
-    $this -> showFormField('oldPass', 'Wachtwoord', 'text');
+    $this -> showFormField('password', 'Wachtwoord', 'text');
     $this -> showFormField('newPass', 'Nieuw wachtwoord', 'text');
     $this -> showFormField('newRepeatPass', 'Herhaal nieuw wachtwoord', 'text');
   }
