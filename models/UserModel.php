@@ -68,6 +68,8 @@ class UserModel extends PageModel{
       $this->meta['name'] = $userInfo['user'];
       $this->userId = $userInfo['id'];
       $this->valid = true;
+    } else {
+      $this->errors['email'] = 'Email of wachtwoord is incorrect';
     }
   }
 
