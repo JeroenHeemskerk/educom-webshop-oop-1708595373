@@ -31,7 +31,11 @@ class PageModel{
   }
 
   private function getArrayVal($array, $key, $default='') {
-    return isset($array[$key]) ? $array[$key] : $default; 
+    $data = isset($array[$key]) ? $array[$key] : $default;
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data; 
    } 
  
   protected function getPostVar($key, $default='') {
@@ -49,17 +53,17 @@ class PageModel{
   public function createMenu(){
     //$myData['menu'] = array('home' => 'Home', 'about' => 'Over mij', 'contact' => 
     //'Contact', 'webshop' => 'WEBSHOP', 'top' => 'TOP 5')
-    $this->menu['home'] = $this->createMenuItem('home', 'Home');
-    $this->menu['about'] = $this->createMenuItem('about', 'Over mij');
-    $this->menu['contact'] = $this->createMenuItem('contact', 'Contact');
-    $this->menu['webshop'] = $this->createMenuItem('webshop', 'Webshop');
-    $this->menu['top'] = $this->createMenuItem('top', 'Top 5');
+    $this->menu['home'] = 'Home';
+    $this->menu['about'] = 'Over mij';
+    $this->menu['contact'] =  'Contact';
+    $this->menu['webshop'] = 'Webshop';
+    $this->menu['top'] = 'Top 5';
     if ($this->sessionManager->isUserLoggedIn()){
-      $this->menu['password'] = $this->createMenuItem('password', 'Wachtwoord veranderen');
-      $this->menu['logout'] = $this->createMenuItem('logout', 'Uitloggen '.$this->sessionManager->getLoggedInUser()['user']);
+      $this->menu['password'] = 'Wachtwoord veranderen';
+      $this->menu['logout'] = 'Uitloggen '.$this->sessionManager->getLoggedInUser()['user'];
     } else {
-      $this->menu['login'] = $this->createMenuItem('login', 'Inloggen');
-      $this->menu['register'] = $this->createMenuItem('register', 'Aanmelden');
+      $this->menu['login'] = 'Inloggen';
+      $this->menu['register'] = 'Aanmelden';
     }
   }
 
