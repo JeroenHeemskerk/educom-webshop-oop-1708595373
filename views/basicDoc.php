@@ -39,24 +39,21 @@ class BasicDoc extends HtmlDoc {
   }
 
   private function showMenu(){
-    echo '<ul class="menu">';
+    /*echo '<ul class="menu">';
     foreach($this->data->menu as $menuEntry){
       echo $menuEntry;
     }
-    echo '</ul>';
-    /*$menu = $this->getData();
+    echo '</ul>';*/
     echo '<ul class="menu">';
-    foreach($menu['menu'] as $link => $label) { 
+    foreach($this->data->menu as $link => $label) { 
       $this->showMenuItem($link, $label); 
     } 
-    echo '</ul>';*/
+    echo '</ul>';
   }
 
-  /*
   private function showMenuItem($page, $pageName){
     echo '<li><a href="index.php?page='.$page.'">'.$pageName.'</a></li>';
   }
-  */
 
   protected function showHeader(){
     $this -> showHeaderStart();

@@ -23,7 +23,13 @@ class Validators{
       }
       $postData = array($inputs['street'], $inputs['housenumber'], $inputs['postalcode'], $inputs['city']);
       //passing along post required in case it was already said to true
-      $postRequired = self::checkArrayNotEmpty($postData, $postRequired);
+      
+      $postRequired = self::checkArrayNotEmpty($postData, $postRequired); 
+
+      // updating to this code isn't working, parse error
+      //$postRequired &&= self::checkArrayNotEmpty($postData);
+      
+
 
       if ($postRequired) {
         $inputsToCheck['street'] = '';
@@ -106,7 +112,7 @@ class Validators{
       $err = $err. 'Dit is geen geldig email address';
       }
     } else {
-      $err = checkFieldContent($email, $err);
+      $err = self::checkFieldContent($email, $err);
     }
     return $err;
   }
