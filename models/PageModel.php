@@ -1,5 +1,6 @@
 <?php
 class PageModel{
+  require_once('models/sessionManager.php');
   public $page;
   protected $isPost = false;
   public $menu;
@@ -9,7 +10,6 @@ class PageModel{
 
   public function __construct($copy){
     if (empty($copy)){
-      require_once('models/sessionManager.php');
       $this->sessionManager = new SessionManager();
     } else {
       $this->page = $copy->page;
