@@ -33,25 +33,26 @@ abstract class FormDoc Extends BasicDoc{
     </div>';
   }
 
-  protected function showFormField($id, $label, $type = 'text', $options=''){
+  protected function showFormField($id){
     $content = $this->data->meta[$id];
+    $value = $this->data->values[$id];
     $error = $this->data->errors[$id];
-
-    $line = $this->showInputSectionStart($id, $label);
-    if ($type == 'text'){ 
-      $line = $line . '<input type = '.$type.' name='.$id.' value= "'.$content.'" id="'.$id.'"' ;
+    $line = $this->showInputSectionStart($id, $content['label']);
+    if ($content['type'] == 'text'){ 
+      $line = $line . '<input type = '.$content['type'].' name='.$id.' value= "'.$value.'" id="'.$id.'"' ;
       $line = $line . "/>";
-    } elseif  ($type == 'select') {
+    } elseif  ($content['type'] == 'select') {
       //$line = $line."Something";
       $line = $line . '<select id="'.$id.'" name="'.$id.'">
       <option value=""></option>';
-      foreach ($options as $id =>  $display){
-        $selected = $content == $id ? 'selected' : '';
+      foreach ($content['options'] as $id =>  $display){
+        $selected = $value == $id ? 'selected' : '';
         $line = $line . '<option value="'.$id.'" '. $selected.' >'.$display.'.</option> ';
       }
       $line = $line . '</select>';
     } else {
-      $line = $line. '<textarea id="'.$id.'" name="'.$id.'" rows="'.$options['rows'].'" cols="'.$options['cols'].'" placeholder="'.$content.'" ></textarea>';
+
+      $line = $line. '<textarea id="'.$id.'" name="'.$id.'" rows="'.$content['options']['rows'].'" cols="'.$content['options']['cols'].'" placeholder="'.$value.'" ></textarea>';
     }
     $line = $line . $this->showInputSectionEnd($error);
     echo $line;

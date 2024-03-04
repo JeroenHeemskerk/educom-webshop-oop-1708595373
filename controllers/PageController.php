@@ -24,6 +24,7 @@ class PageController{
     switch($this->model->page){  
       case 'contact':
         $this->model = new UserModel($this->model);
+        $this->model->getMeta();
         $this->model->getInputs();
         $this->model->getErrors();
         if(isset($this->model->errors['page'])){
@@ -50,8 +51,10 @@ class PageController{
         break;
       case 'register':{
         $this->model = new UserModel($this->model);
+        $this->model->getMeta();
         $this->model->getInputs();
         $this->model->getErrors();
+
         if($this->model->errors['valid']){
           $this->model->doRegisterUser();
         }
@@ -59,6 +62,7 @@ class PageController{
       }
       case 'password':
         $this->model = new UserModel($this->model);
+        $this->model->getMeta();
         $this->model->getInputs();
         $this->model->getErrors();
         if($this->model->errors['valid']){

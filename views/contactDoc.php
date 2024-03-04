@@ -18,16 +18,17 @@ require_once('formDoc.php');
   }
 
   protected function showFormContent(){ 
-    $this -> showFormField('title', 'Title', 'select', array("mr" => "Dhr", 'mrs' => 'Mvr', 'other' => 'Anders')) ;
-    $this -> showFormField('name', 'Naam', 'text');
-    $this -> showFormField('email', 'Email', 'text');
-    $this -> showFormField('phonenumber', 'Telefoon', 'text');
-    $this -> showFormField('street', 'Straat', 'text');
-    $this -> showFormField('housenumber', 'Huisnummer', 'text');
-    $this -> showFormField('postalcode', 'Postcode', 'text');
-    $this -> showFormField('city', 'Woonplaats', 'text');
-    $this -> showFormField('communication', 'Hoe wilt u communiceren?', 'select', array('email'=> 'Email', 'phone'=>'Telefoon', 'post'=> 'Post'));
-    $this -> showFormField('message', 'Waarom wilt u contact opnemen?', 'textarea', array('rows' => 4, 'cols' => 50));
+    require_once('models/Validators.php');
+    $this -> showFormField('title') ;
+    $this -> showFormField('name');
+    $this -> showFormField('email');
+    $this -> showFormField('phonenumber');
+    $this -> showFormField('street');
+    $this -> showFormField('housenumber');
+    $this -> showFormField('postalcode');
+    $this -> showFormField('city');
+    $this -> showFormField('communication');
+    $this -> showFormField('message');
   }
 } 
 ?>

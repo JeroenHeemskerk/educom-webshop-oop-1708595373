@@ -1,5 +1,8 @@
 <?php
+  define("TITLES", array("mr" => "Dhr", 'mrs' => 'Mvr', 'other' => 'Anders'));
+  define("COMMUNICATIONS", array('email'=> 'Email', 'phone'=>'Telefoon', 'post'=> 'Post'));
 class Validators{
+
   public static function validateInputs($page, $inputs, $errors){
     $errors['valid'] = false;
     $ogErrors = $errors;

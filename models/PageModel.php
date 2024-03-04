@@ -1,6 +1,7 @@
 <?php
-class PageModel{
   require_once('models/sessionManager.php');
+class PageModel{
+
   public $page;
   protected $isPost = false;
   public $menu;

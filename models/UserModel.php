@@ -4,6 +4,7 @@ require_once('Validators.php');
 
 class UserModel extends PageModel{
   public $meta = array();
+  public $values = array();
   public $errors = array();
   private $userId = 0;
   public $valid = false;
@@ -12,30 +13,62 @@ class UserModel extends PageModel{
     PARENT::__construct($pageModel);
   }
 
-  public function getInputs(){
-    //initial if statements are to set up the meta $ error arrays
-    if ($this->page == 'contact'){
-      $this->meta =array('title' => '', 'name' => '', 'email' => '', 'phonenumber' => '', 'street' => '', 
-      'housenumber' => '', 'postalcode' => '', 'city' => '', 'communication' => '', 'message' => '');
-    }elseif ($this->page == 'login'){
-      $this->meta = array('email' => '', 'password' => '');
-    } elseif ($this->page == 'register'){
-      $this->meta = array('name'=> '', 'email' => '', 'password' => '', 'repeat' => '');
-    } else {
+  public function getMeta(){
+    //Okay, this is gonna get scattered with comments as I hone down on what I want to do
+    // For each form type, I want a meta array that contains the info needed for formDoc to display + what validations its need
+    // So that means an array of IDs
+    // each id needs to get what to the form? label, type, and content, and what kind of validation it requires 
+    // Four flags, whether or not it is empty (and a valid option on select), dependant on select, or dependant on group (I'll do that one later)
+    // Also means I can let the error messages depend on validation flags
+
+    // should make this a case
+    switch ($this->page){
+      case 'contact':
+        $this->meta = array(
+          'title' => array('label' => 'Titel',   'type' => 'select', 'options' => TITLES, 'validations' => array('notEmpty', 'validOption')),
+          'name' => array('label' => 'Naam',   'type' => 'text', 'validations' => array('notEmpty')),
+          'email' => array('label' => 'Email',   'type' => 'text', 'validations' => array('notEmptyIf:contact:email', 'validEmail')),
+          'phonenumber' => array('label' => 'Telefoonnummer',   'type' => 'text', 'validations' => array('notEmptyIf:contact:phone')),
+          'street' => array('label' => 'Straat',   'type' => 'text', 'validations' => array('notEmptyIf:contact:post')),
+          'housenumber' => array('label' => 'Huisnummer',   'type' => 'text', 'validations' => array('notEmptyIf:contact:post')),
+          'postalcode' => array('label' => 'Postcode',  'type' => 'text', 'validations' => array('notEmptyIf:contact:post')),
+          'city' => array('label' => 'Woonplaats',   'type' => 'text', 'validations' => array('notEmptyIf:contact:post')),
+          'communication' => array('label' => 'Communicatie voorkeur',   'type' => 'select', 'options' => COMMUNICATIONS, 'validations' => array('notEmpty', 'validOption')),
+          'message' => array('label' => 'Reden van contact',   'type' => 'textarea', 'options' =>  array('rows' => 4, 'cols' => 50), 'validations' => array('notEmpty')),
+        );
+        break;
+      case 'login':
+        $this->meta = array(
+          'email' => array('label' => 'Email', 'type' => 'text', 'validations' => array('notEmpty', 'validEmail')), 
+          'password' =>  array('label' => 'Wachtwoord', 'type' => 'text', 'validations' => array('notEmpty')), 
+        );
+        break;
+      case 'register':
+      $this->meta = array(
+        'user' =>  array('label' => 'Gebruikersnaam', 'type' => 'text', 'validations' => array('notEmpty')), 
+        'email' => array('label' => 'Email', 'type' => 'text', 'validations' => array('notEmpty', 'validEmail')), 
+        'password' =>  array('label' => 'Wachtwoord', 'type' => 'text', 'validations' => array('notEmpty', 'matchWith:repeat')), 
+        'repeat' =>  array('label' => 'Herhaal wachtwoord', 'type' => 'text', 'validations' => array('notEmpty')),
+        );
+        break;
+      case 'password':
       $this->meta = array('password' => '', 'newPass' => '', 'newRepeatPass' => '');
+      break;
     }
-    //There's only info to fill them with if it is a post
-    if ($this->isPost){
-      foreach ($this->meta as $key => $value){
-        $this->meta[$key] = $this->getPostVar("$key");
-      }
+    var_dump($this->meta);
+  }
+
+  public function getInputs(){
+    // a post request on a form that hasn't been filled will just return blanks
+    foreach ($this->meta as $key => $value){
+      $this->values[$key] = $this->getPostVar("$key");
     }
   }
 
   public function getErrors(){
+    // So if its not a post we still want to mark required posts for the user with a *
     if ($this->page == 'contact'){
-      $this->errors =array('title' => '*', 'name' => '*', 'email' => '', 'phonenumber' => '', 'street' => '', 
-      'housenumber' => '', 'postalcode' => '', 'city' => '', 'communication' => '*', 'message' => '*');
+      $this->errors =array('title' => '*', 'name' => '*', 'communication' => '*', 'message' => '*');
     } elseif ($this->page == 'login'){
       $this->errors = array('email' => '*', 'password' => '*', 'valid' => false);
     } elseif ($this->page == 'register'){
@@ -43,6 +76,12 @@ class UserModel extends PageModel{
     }else {
       $this->errors = array('password' => '*', 'newPass' => '*', 'newRepeatPass' => '*', 'valid' => false);
     }
+    foreach ($this->meta as $key => $value){
+      if(!isset($this->errors[$key])){
+        $this->errors[$key] = $this->getPostVar("$key");
+      }
+    }
+
     // a more thorough check is only necessary if it is a POST request
     if ($this->isPost){
       $this->errors = Validators::validateInputs($this->page, $this->meta, $this->errors);

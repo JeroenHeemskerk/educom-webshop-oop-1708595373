@@ -17,8 +17,8 @@ class LoginDoc Extends FormDoc{
   }
 
   protected function showFormContent(){
-    $this -> showFormField('email', 'Email', 'text');
-    $this -> showFormField('password', 'Wachtwoord', 'text');
+    $this -> showFormField('email');
+    $this -> showFormField('password');
   }
 
 }

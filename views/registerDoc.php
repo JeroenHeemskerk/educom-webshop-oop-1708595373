@@ -17,7 +17,7 @@ class RegisterDoc Extends FormDoc{
  }
 
   protected function showFormContent(){
-    $this -> showFormField('name', 'Gebruikersnaam', 'text');
+    $this -> showFormField('user', 'Gebruikersnaam', 'text');
     $this -> showFormField('email', 'Email', 'text');
     $this -> showFormField('password', 'Wachtwoord', 'text');
     $this -> showFormField('repeat', 'Herhaal wachtwoord', 'text');
