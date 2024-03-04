@@ -55,13 +55,12 @@ class UserModel extends PageModel{
       $this->meta = array('password' => '', 'newPass' => '', 'newRepeatPass' => '');
       break;
     }
-    var_dump($this->meta);
   }
 
   public function getInputs(){
     // a post request on a form that hasn't been filled will just return blanks
     foreach ($this->meta as $key => $value){
-      $this->values[$key] = $this->getPostVar("$key");
+      $this->values[$key] = $this->getPostVar($key);
     }
   }
 
@@ -78,17 +77,18 @@ class UserModel extends PageModel{
     }
     foreach ($this->meta as $key => $value){
       if(!isset($this->errors[$key])){
-        $this->errors[$key] = $this->getPostVar("$key");
+        $this->errors[$key] = '';
       }
     }
 
     // a more thorough check is only necessary if it is a POST request
     if ($this->isPost){
-      $this->errors = Validators::validateInputs($this->page, $this->meta, $this->errors);
+      $this->errors = Validators::validateInputs($this->page, $this->meta, $this->values, $this->errors);
     }
   }
 
   public function validateLogin(){
+    $this->getMeta();
     $this->getInputs();
     $this->getErrors();
     if (!$this->errors['valid']){

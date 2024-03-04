@@ -42,12 +42,13 @@ class PageController{
       case 'login':
         $this->model = new UserModel($this->model);
         $this->model->validateLogin();
+        /*
         if($this->model->valid){
           //otherwise a correct password stays afloat in the data
           $this->model->meta['password'] = '';
           $this->model->doLoginUser();
           $this->model->setPage('home');
-        }
+        }*/
         break;
       case 'register':{
         $this->model = new UserModel($this->model);

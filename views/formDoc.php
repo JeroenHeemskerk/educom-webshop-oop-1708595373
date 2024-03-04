@@ -29,6 +29,7 @@ abstract class FormDoc Extends BasicDoc{
     /*
     error string
     */
+    
     return '<span class="error">'.$error.' </span>
     </div>';
   }
@@ -37,6 +38,7 @@ abstract class FormDoc Extends BasicDoc{
     $content = $this->data->meta[$id];
     $value = $this->data->values[$id];
     $error = $this->data->errors[$id];
+
     $line = $this->showInputSectionStart($id, $content['label']);
     if ($content['type'] == 'text'){ 
       $line = $line . '<input type = '.$content['type'].' name='.$id.' value= "'.$value.'" id="'.$id.'"' ;
@@ -54,6 +56,7 @@ abstract class FormDoc Extends BasicDoc{
 
       $line = $line. '<textarea id="'.$id.'" name="'.$id.'" rows="'.$content['options']['rows'].'" cols="'.$content['options']['cols'].'" placeholder="'.$value.'" ></textarea>';
     }
+
     $line = $line . $this->showInputSectionEnd($error);
     echo $line;
   }
