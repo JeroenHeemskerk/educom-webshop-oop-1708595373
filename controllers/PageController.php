@@ -1,6 +1,7 @@
 <?php
 require_once('models/PageModel.php');
 require_once('models/UserModel.php');
+require_once('models/ShopModel.php');
 
 class PageController{
   private $model;
@@ -28,6 +29,14 @@ class PageController{
         if(isset($this->model->errors['page'])){
           $this->model->setPage('thank');
         }
+        break;
+      case 'webshop':
+        $this->model = new ShopModel($this->model);
+        $this->model->getWebShopData();
+        break;
+        case 'webshop':
+        $this->model = new ShopModel($this->model);
+        $this->model->getTopFiveData();
         break;
       case 'login':
         $this->model = new UserModel($this->model);
@@ -82,6 +91,14 @@ class PageController{
       case 'thank':
         require_once('views/thanksDoc.php');
         $view = new ThanksDoc($this->model);
+        break;
+      case 'webshop':
+        require_once('views/webshopDoc.php');
+        $view = new WebshopDoc($this->model);
+        break;
+      case 'top':
+        require_once('views/top5Doc.php');
+        $view = new Top5Doc($this->model);
         break;
       case 'register':{
         require_once('views/registerDoc.php');

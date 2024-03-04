@@ -6,8 +6,8 @@ abstract class ProductDoc Extends BasicDoc{
     type string
     imagesize array('width', 'height')
     */
-    $page = $this->data['page']; 
-    $items = $this->data['items'];
+    $page = $this->data -> page; 
+    $items = $this->data -> products;
     echo '';
     if($type == 'menu'){
       $this->showProductMenu($page, $items, $imagesize);
@@ -92,7 +92,7 @@ abstract class ProductDoc Extends BasicDoc{
     imagesize array('width', 'height')
     */
     echo '';
-    if(isset($this->data['dbError'])){
+    if(isset($this->data->error['dbError'])){
       echo 'Database kan momenteel niet bereikt worden';
     }
     echo '<ul class=items>';
