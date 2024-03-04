@@ -94,7 +94,7 @@ class UserModel extends PageModel{
     if (!$this->errors['valid']){
       return;
     } else {
-      $this->authUser($this->meta['email']);
+      $this->authUser($this->values['email']);
     }
   }
 
@@ -106,12 +106,12 @@ class UserModel extends PageModel{
     if (!isset($userInfo)){
       return $userInfo;}
     //check if password overlaps with the password in $userInfo
-    if ($this->passwordDecrypt($this->meta['password'], $userInfo['password'])){ 
-      $this->meta['name'] = $userInfo['user'];
+    if ($this->passwordDecrypt($this->values['password'], $userInfo['password'])){ 
+      $this->values['name'] = $userInfo['user'];
       $this->userId = $userInfo['id'];
       $this->valid = true;
     } else {
-      $this->errors['email'] = 'Email of wachtwoord is incorrect';
+      $this->errors['email'] = '*Email of wachtwoord is incorrect';
     }
   }
 
@@ -124,7 +124,7 @@ class UserModel extends PageModel{
   }
 
   public function doLoginUser(){
-    $this->sessionManager->doLoginUser($this->meta['name'], $this->meta['email'], $this->userId);
+    $this->sessionManager->doLoginUser($this->values['name'], $this->values['email'], $this->userId);
   }
 
   public function doLogoutUser(){
@@ -147,22 +147,21 @@ class UserModel extends PageModel{
 
   public function doRegisterUser(){
     require_once('db_Repository.php');
-    $this->meta['email'];
-    $this->meta['name'];
-    $this->meta['password'];
-    $check = findUserByEmailDB($this->meta['name']);
-    if(!findUserByEmailDB($this->meta['name'])){
+    $this->values['email'];
+    $this->values['user'];
+    $this->values['password'];
+    if(!findUserByEmailDB($this->values['email'])){
       self::saveUser();
       $this->setPage('home');
     } else {
-      $this->error['email'] = 'Deze email is al geregisteerd';
+      $this->errors['email'] = 'Deze email is al geregisteerd';
     }
   }
 
   private function saveUser(){
     require_once('db_Repository.php');
-    $password = self::passwordEncrypt($this->meta['password']);
-    saveUserDB($this->meta['email'], $this->meta['name'], $password);
+    $password = self::passwordEncrypt($this->values['password']);
+    saveUserDB($this->values['email'], $this->values['user'], $password);
     
   }
 

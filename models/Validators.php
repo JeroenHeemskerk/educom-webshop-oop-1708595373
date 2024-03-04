@@ -20,7 +20,6 @@ class Validators{
   }
 
   private static function validateField($key, $inputs, $metadata, $error){
-    //var_dump($error[$key]);
     $groupCheck = array();
     foreach($metadata['validations'] as $validation) {
         $parts = explode(':', $validation, 2); 
@@ -35,7 +34,9 @@ class Validators{
               //$group = explode(':', $parts, 2)[1];
               break;
             case "validEmail":
-              if (empty($inputs[$key] == false)){ 
+              if (empty($inputs
+              
+              [$key] == false)){ 
                   $error[$key] = self::checkEmail($key, $inputs, $error);
               }
                 break;
@@ -80,7 +81,6 @@ class Validators{
   }
   
   private static function checkEmail($key, $data, $err){
-    var_dump($err[$key]);
       if (!filter_var($data[$key], FILTER_VALIDATE_EMAIL)){
         $err[$key] = $err[$key]. 'Dit is geen geldig email address';
       } 
