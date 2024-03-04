@@ -29,10 +29,10 @@ class UserModel extends PageModel{
           'name' => array('label' => 'Naam',   'type' => 'text', 'validations' => array('notEmpty')),
           'email' => array('label' => 'Email',   'type' => 'text', 'validations' => array('notEmptyIf:contact:email', 'validEmail')),
           'phonenumber' => array('label' => 'Telefoonnummer',   'type' => 'text', 'validations' => array('notEmptyIf:contact:phone')),
-          'street' => array('label' => 'Straat',   'type' => 'text', 'validations' => array('notEmptyIf:contact:post')),
-          'housenumber' => array('label' => 'Huisnummer',   'type' => 'text', 'validations' => array('notEmptyIf:contact:post')),
-          'postalcode' => array('label' => 'Postcode',  'type' => 'text', 'validations' => array('notEmptyIf:contact:post')),
-          'city' => array('label' => 'Woonplaats',   'type' => 'text', 'validations' => array('notEmptyIf:contact:post')),
+          'street' => array('label' => 'Straat',   'type' => 'text', 'validations' => array('notEmptyIf:contact:post',"notEmptyGroup:addres-one")),
+          'housenumber' => array('label' => 'Huisnummer',   'type' => 'text', 'validations' => array('notEmptyIf:contact:post', "notEmptyGroup:addres-one")),
+          'postalcode' => array('label' => 'Postcode',  'type' => 'text', 'validations' => array('notEmptyIf:contact:post', "notEmptyGroup:addres-one")),
+          'city' => array('label' => 'Woonplaats',   'type' => 'text', 'validations' => array('notEmptyIf:contact:post', "notEmptyGroup:addres-one")),
           'communication' => array('label' => 'Communicatie voorkeur',   'type' => 'select', 'options' => COMMUNICATIONS, 'validations' => array('notEmpty', 'validOption')),
           'message' => array('label' => 'Reden van contact',   'type' => 'textarea', 'options' =>  array('rows' => 4, 'cols' => 50), 'validations' => array('notEmpty')),
         );
@@ -69,11 +69,11 @@ class UserModel extends PageModel{
     if ($this->page == 'contact'){
       $this->errors =array('title' => '*', 'name' => '*', 'communication' => '*', 'message' => '*');
     } elseif ($this->page == 'login'){
-      $this->errors = array('email' => '*', 'password' => '*', 'valid' => false);
+      $this->errors = array('email' => '*', 'password' => '*');
     } elseif ($this->page == 'register'){
       $this->errors = array('name'=>'*', 'email' => '*', 'password' => '*', 'repeat' => '*');
     }else {
-      $this->errors = array('password' => '*', 'newPass' => '*', 'newRepeatPass' => '*', 'valid' => false);
+      $this->errors = array('password' => '*', 'newPass' => '*', 'newRepeatPass' => '*');
     }
     foreach ($this->meta as $key => $value){
       if(!isset($this->errors[$key])){

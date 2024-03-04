@@ -21,6 +21,7 @@ class Validators{
 
   private static function validateField($key, $inputs, $metadata, $error){
     //var_dump($error[$key]);
+    $groupCheck = array();
     foreach($metadata['validations'] as $validation) {
         $parts = explode(':', $validation, 2); 
         switch($parts[0]) {
@@ -30,8 +31,13 @@ class Validators{
             case 'notEmptyIf':
                 $error[$key] = self::conditionalCheckFieldContent($key, $inputs, $error, $parts[1]);
                 break;
+            case 'notEmptyGroup':
+              //$group = explode(':', $parts, 2)[1];
+              break;
             case "validEmail":
-                $error[$key] = self::checkEmail($key, $inputs, $error);
+              if (empty($inputs[$key] == false)){ 
+                  $error[$key] = self::checkEmail($key, $inputs, $error);
+              }
                 break;
         }
     }
@@ -39,18 +45,6 @@ class Validators{
       $error[$key] = '';
     }
     return $error[$key];
-  }
-
-  private static function validateInputsRegister($inputs, $errors){
-    //$errors['email'] = self::checkFieldContent($inputs['email'], $errors['email']);
-    $errors['name'] = self::checkFieldContent($inputs['name'], $errors['name']);
-    $errors['email'] = self::checkEmail($inputs['email'], $errors['email']);
-    $errors['password'] = self::checkFieldContent($inputs['password'], $errors['password']);
-    $errors['repeat'] = self::checkFieldContent($inputs['repeat'], $errors['repeat']);
-    $errors['password'] = self::checkPasswordMatch($inputs['password'], $inputs['repeat'], $errors['password']);
-    // first check fields
-
-    return $errors;
   }
 
   private static function checkArrayNotEmpty($data, $flag=false){
@@ -65,29 +59,32 @@ class Validators{
   private static function conditionalCheckFieldContent($key, $data, $err, $condition){
     $parts = explode(':', $condition, 2); 
     // so if its contact, you do a field content check on a few fields, I think this is also the only conditional currently in the system
-    switch ($parts[1]){
-      case 'email':
-        $err[$key] = self::checkFieldContent($key, $data, $err);
+    // so for the contact condition
+    if ($parts[0] == 'contact'){
+      if ($parts[1] == $data['communication'])
+      $err[$key] = self::checkFieldContent($key, $data, $err);
     }
+    // the second condition is group
+    // how'd this work? I think by checking if anything else in the group is filled
     return $err[$key];
   }
-  
+
   private static function checkFieldContent($key, $data, $err){
     //var_dump($err[$key]);
     if (empty($data[$key])) {
      $err[$key] = $err[$key]."Dit veld moet ingevuld worden"; 
     }
 
+
     return $err[$key];
   }
   
   private static function checkEmail($key, $data, $err){
-    if (empty($data[$key] == false)){ 
+    var_dump($err[$key]);
       if (!filter_var($data[$key], FILTER_VALIDATE_EMAIL)){
         $err[$key] = $err[$key]. 'Dit is geen geldig email address';
       } 
     return $err[$key];
-    }
   }
 
   private static function checkPostalCode($postalCode, $err=''){
