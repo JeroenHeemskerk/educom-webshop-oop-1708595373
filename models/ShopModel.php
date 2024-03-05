@@ -17,18 +17,25 @@ class ShopModel extends PageModel{
       $this->products = getItemsFromDB('id, name, price, image');
       }
       catch (exception $e) {$this-> genericErr = 'Kon database niet bereiken';
-        logErrors($e->getMessage());}
+        $this->logErrors($e->getMessage());}
   }
 
   public function getTopFiveData(){
     try {
-      $this->products = getTopItemsDB('id, name, price, image');
+      $this->products = getTopItemsDB();
       }
       catch (exception $e) {$this-> genericErr = 'Kon database niet bereiken';
-        logErrors($e->getMessage());}
-
+        $this->logErrors($e->getMessage());}
   }
 
+  public function getDetailData(){
+    $parts = explode('-', $this->page, 3);
+    try {
+      $this->products = getItemsFromDB('name, price, description, image, id', 'products', 'id='.$parts[2]);
+      }
+      catch (exception $e) {$this-> genericErr = 'Kon database niet bereiken';
+        $this->logErrors($e->getMessage());}
+  }
 
 }
 ?>

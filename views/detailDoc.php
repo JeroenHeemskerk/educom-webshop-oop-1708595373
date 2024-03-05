@@ -7,12 +7,12 @@ class DetailDoc Extends ProductDoc{
   }
 
   protected function showHeaderContent(){
-    $product = $this->data['items'][0]['name'];
-    echo $product;
+    echo $this->data->products[0]['name'];
   }
 
   protected function showContent(){
-    $item = $this->data['items'][0];
+    $item = $this->data->products[0];
+    var_dump($item);
     $this -> startDivSection('container');
     $this -> showProductContent('detail', array('width' => 500, 'height' => 500));
     $this -> startDivSection('text');

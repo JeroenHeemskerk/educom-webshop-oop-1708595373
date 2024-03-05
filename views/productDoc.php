@@ -7,12 +7,11 @@ abstract class ProductDoc Extends BasicDoc{
     imagesize array('width', 'height')
     */
     $page = $this->data -> page; 
-    $items = $this->data -> products;
-    echo '';
+    $items = $this->data->products;
     if($type == 'menu'){
       $this->showProductMenu($page, $items, $imagesize);
     } else if ($type == 'detail'){
-      $item = $this->data['items'][0];
+      $item = $items[0];
       $this->showProductImage($item, $imagesize);
     } else { //in this case this being basket
       if(isset($items['basket'])){
