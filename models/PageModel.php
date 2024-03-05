@@ -60,6 +60,7 @@ class PageModel{
     $this->menu['webshop'] = 'Webshop';
     $this->menu['top'] = 'Top 5';
     if ($this->sessionManager->isUserLoggedIn()){
+      $this->menu['cart'] = 'Winkelwagen';
       $this->menu['password'] = 'Wachtwoord veranderen';
       $this->menu['logout'] = 'Uitloggen '.$this->sessionManager->getLoggedInUser()['user'];
     } else {

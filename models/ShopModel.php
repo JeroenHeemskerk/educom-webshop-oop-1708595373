@@ -12,6 +12,19 @@ class ShopModel extends PageModel{
     PARENT::__construct($pageModel);
   }
 
+  public function handleCartActions(){
+    $action = $this->getPostVar("action");
+    switch($action){
+      case "addToCart":
+        try {
+        $this->sessionManager->addItemToBasket($this->getPostVar("id"));
+        }
+        catch (exception $e) {$this->genericErr = 'Kon het item niet toevoegen, probeer later opnieuw';
+          logErrors($e->getMessage());}
+        break;
+    }
+  }
+
   public function getWebShopData(){
     try {
       $this->products = getItemsFromDB('id, name, price, image');

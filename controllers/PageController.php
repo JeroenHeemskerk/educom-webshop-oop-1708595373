@@ -25,6 +25,8 @@ class PageController{
   }
 
   private function processRequest(){
+
+
     switch($this->model->page){  
       case 'contact':
         $this->model = new UserModel($this->model);
@@ -46,6 +48,10 @@ class PageController{
       case strstr($this->model->page, 'product'):
         $this->model = new ShopModel($this->model);
         $this->model->getDetailData();
+        break;
+      case 'cart':
+        $this->model = new ShopModel($this->model);
+        $this->model->handleCartActions();
         break;
       case 'login':
         $this->model = new UserModel($this->model);
@@ -115,11 +121,14 @@ class PageController{
         require_once('views/detailDoc.php');
         $view = new DetailDoc($this->model);
         break;
-      case 'register':{
+      case 'cart':
+        require_once('views/cartDoc.php');
+        $view = new CartDoc($this->model);
+        break;
+      case 'register':
         require_once('views/registerDoc.php');
         $view = new RegisterDoc($this->model);
         break;
-      }
       case 'login':
         require_once('views/loginDoc.php');
         $view = new LoginDoc($this->model);
