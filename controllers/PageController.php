@@ -44,6 +44,7 @@ class PageController{
       case 'top':
         $this->model = new ShopModel($this->model);
         $this->model->getTopFiveData();
+        
         break;
       case strstr($this->model->page, 'product'):
         $this->model = new ShopModel($this->model);
