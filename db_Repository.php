@@ -104,14 +104,13 @@ function getItemsFromDB($select = '*', $from = 'products', $where = '' ){
 
 }
 
-function placeOrderDB($email){
+function placeOrderDB($email, $basket){
   //I did not save user ID into the session, which means I have to get it through a query
   $userData = findUserByEmailDB($email);
   $userId = $userData['id'];
   $orderId = insertInOrder($userId);
-  insertOrderInOrdersContent($orderId);
+  insertOrderInOrdersContent($orderId, $basket);
   // and once we get here, it means the order was succesfully placed, thus we can clear the basked
-  makeCart();
 }
 
 function insertInOrder($userId){
@@ -131,10 +130,10 @@ function insertInOrder($userId){
   }
 }
 
-function insertOrderinOrdersContent($orderId){
+function insertOrderinOrdersContent($orderId, $basket){
   $conn = dbConnect();
   // Need to know what is in the basket for this
-  $basket = getSessionBasket();
+  //$basket = getSessionBasket();
   // I want to create a big insert query for all sets of values
   // the base of the query at least is
   $sql = 'INSERT INTO orders_content (order_id, product_id, product_count) VALUES';

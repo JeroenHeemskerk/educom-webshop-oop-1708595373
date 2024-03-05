@@ -25,6 +25,7 @@ class ShopModel extends PageModel{
       case "placeOrder":
         try {
           placeOrderDB($this->sessionManager->getLoggedInUser()['email'], $this->sessionManager->getBasket());
+          $this->sessionManager->makeCart();
          }
           catch (exception $e) {$this->genericErr = 'Kon de order niet plaatsen probeer later opnieuw';
             logErrors($e->getMessage());}
