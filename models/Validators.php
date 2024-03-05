@@ -21,13 +21,11 @@ class Validators{
           }
         }
         // if the flag ends up on true you gotta loop through everything, otherwise you'll miss something
-        var_dump($group);
         if ($flag){
           foreach($keys as $key => $value){
             $errors[$key] = self::checkFieldContent($key, $inputs, $errors);
           }
         }
-
       }
     }
       //$errors[$key] = self::validateField($key, $inputs, $metaData, $errors);
