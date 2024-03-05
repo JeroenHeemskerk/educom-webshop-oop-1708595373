@@ -20,6 +20,10 @@ class PageController{
     $this->model->getRequestedPage();
   }
 
+  public function logErrors($msg){
+    echo "LOG TO SERVER:".$msg;
+  }
+
   private function processRequest(){
     switch($this->model->page){  
       case 'contact':
@@ -35,9 +39,13 @@ class PageController{
         $this->model = new ShopModel($this->model);
         $this->model->getWebShopData();
         break;
-        case 'webshop':
+      case 'top':
         $this->model = new ShopModel($this->model);
         $this->model->getTopFiveData();
+        break;
+      case strstr($this->model->page, 'product'):
+        $this->model = new ShopModel($this->model);
+        $this->model->getDetailData();
         break;
       case 'login':
         $this->model = new UserModel($this->model);
@@ -54,7 +62,6 @@ class PageController{
         $this->model->getMeta();
         $this->model->getInputs();
         $this->model->getErrors();
-
         if($this->model->errors['valid']){
           $this->model->doRegisterUser();
         }
@@ -103,6 +110,10 @@ class PageController{
       case 'top':
         require_once('views/top5Doc.php');
         $view = new Top5Doc($this->model);
+        break;
+      case strstr($this->model->page, 'product'):
+        require_once('views/detailDoc.php');
+        $view = new DetailDoc($this->model);
         break;
       case 'register':{
         require_once('views/registerDoc.php');

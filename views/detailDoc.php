@@ -12,7 +12,6 @@ class DetailDoc Extends ProductDoc{
 
   protected function showContent(){
     $item = $this->data->products[0];
-    var_dump($item);
     $this -> startDivSection('container');
     $this -> showProductContent('detail', array('width' => 500, 'height' => 500));
     $this -> startDivSection('text');

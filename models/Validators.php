@@ -5,8 +5,30 @@ class Validators{
   public static function validateInputs($page, $meta, $inputs, $errors){
     $errors['valid'] = false;
     $ogErrors = $errors;
+    $groups = array();
     foreach($meta as $key => $metaData){
       $errors[$key] = self::validateField($key, $inputs, $metaData, $errors);
+      if (array_key_exists('group', $metaData )){
+        $groups[$metaData['group']][$key] = $inputs[$key];
+      }
+    }
+    if(!empty($groups)){
+      foreach($groups as $group => $keys){
+        $flag = false;
+        foreach($keys as $key => $value){
+          if (!empty($value)){
+            $flag = true;
+          }
+        }
+        // if the flag ends up on true you gotta loop through everything, otherwise you'll miss something
+        var_dump($group);
+        if ($flag){
+          foreach($keys as $key => $value){
+            $errors[$key] = self::checkFieldContent($key, $inputs, $errors);
+          }
+        }
+
+      }
     }
       //$errors[$key] = self::validateField($key, $inputs, $metaData, $errors);
       //if (isset($errors[$key])) {
@@ -30,13 +52,8 @@ class Validators{
             case 'notEmptyIf':
                 $error[$key] = self::conditionalCheckFieldContent($key, $inputs, $error, $parts[1]);
                 break;
-            case 'notEmptyGroup':
-              //$group = explode(':', $parts, 2)[1];
-              break;
             case "validEmail":
-              if (empty($inputs
-              
-              [$key] == false)){ 
+              if (empty($inputs[$key] == false)){ 
                   $error[$key] = self::checkEmail($key, $inputs, $error);
               }
                 break;
