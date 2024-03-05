@@ -22,6 +22,13 @@ class ShopModel extends PageModel{
         catch (exception $e) {$this->genericErr = 'Kon het item niet toevoegen, probeer later opnieuw';
           logErrors($e->getMessage());}
         break;
+      case "placeOrder":
+        try {
+          placeOrderDB($this->sessionManager->getLoggedInUser()['email'], $this->sessionManager->getBasket());
+         }
+          catch (exception $e) {$this->genericErr = 'Kon de order niet plaatsen probeer later opnieuw';
+            logErrors($e->getMessage());}
+        break;
     }
   }
 
@@ -48,6 +55,18 @@ class ShopModel extends PageModel{
       }
       catch (exception $e) {$this-> genericErr = 'Kon database niet bereiken';
         $this->logErrors($e->getMessage());}
+  }
+
+  public function getCartLines(){
+    foreach ($this->sessionManager->getBasket() as $id => $amount){
+      try{
+        $item = getItemsFromDB('name, price, image, id', 'products', 'id='.$id);
+        $this->cartLines[$id] = $item;
+        $this->cartLines[$id]['count'] = $amount;
+        $this->cartTotal += $amount * $this->cartLines[$id][0]['price'];
+        } catch (exception $e) {$this->genericErr = 'Database momenteel niet bereikbaar';
+        logErrors($e->getMessage());}
+    }
   }
 
 }

@@ -104,9 +104,8 @@ function getItemsFromDB($select = '*', $from = 'products', $where = '' ){
 
 }
 
-function placeOrderDB(){
+function placeOrderDB($email){
   //I did not save user ID into the session, which means I have to get it through a query
-  $email = getSessionEmail();
   $userData = findUserByEmailDB($email);
   $userId = $userData['id'];
   $orderId = insertInOrder($userId);

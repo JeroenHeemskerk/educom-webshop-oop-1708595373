@@ -35,7 +35,7 @@ class SessionManager{
     }
   }
 
-  function getItemBasket(){
+  function getBasket(){
     return $_SESSION['basket'];
   }
 }

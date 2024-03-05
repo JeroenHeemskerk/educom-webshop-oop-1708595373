@@ -52,6 +52,7 @@ class PageController{
       case 'cart':
         $this->model = new ShopModel($this->model);
         $this->model->handleCartActions();
+        $this->model->getCartLines();
         break;
       case 'login':
         $this->model = new UserModel($this->model);

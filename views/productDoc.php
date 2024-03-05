@@ -10,17 +10,7 @@ abstract class ProductDoc Extends BasicDoc{
     $items = $this->data->products;
     if($type == 'menu'){
       $this->showProductMenu($page, $items, $imagesize);
-    }  else { //in this case this being basket
-      if(isset($items['basket'])){
-        foreach($items['basket'] as $key => $content){
-          $display = $content[0];
-          $this -> showProductImageLink($display, $imagesize);
-          $this -> showSpanText('cartText', $display['name']);
-          $this -> showSpanText('cartText', $content['count']);
-          $this -> showSpanText('cartText',  '&euro;'.$display['price']);
-        }
-      }
-    }
+    }  
   }
 
 
@@ -60,7 +50,7 @@ abstract class ProductDoc Extends BasicDoc{
 
   }
 
-  private function showProductImageLink($item, $imagesize){
+  protected function showProductImageLink($item, $imagesize){
     /*
     item array 
     imagesize array('width', 'height')
