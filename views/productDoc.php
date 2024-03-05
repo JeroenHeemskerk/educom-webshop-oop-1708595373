@@ -43,9 +43,8 @@ abstract class ProductDoc Extends BasicDoc{
     $text = 'Toevoegen aan bestelling';
     $id = $item['id'];
   }
-
   echo '';
-    if (isset($_SESSION['userName'])){
+    if (isset($_SESSION['user'])){
       echo '
       <form action="index.php?page="cart" method="POST">
       <input type="hidden" name="page" value="cart">
