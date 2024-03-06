@@ -19,21 +19,97 @@
     finally {
     }
   }
-  
 
-    public function createRow($sql, $params){
-      self::connectToDB();
-      $stmt = $this-> pdo -> prepare($sql);
-      foreach ($params as $key => $content){;
-        $stmt->bindValue($key, $content);
+  public function createRow($sql, $params){
+    self::connectToDB();
+    $stmt = $this-> pdo -> prepare($sql);
+    foreach ($params as $key => $content){;
+      $stmt->bindValue($key, $content);
+    }
+    try {
+      if(!$stmt->execute()){
+        throw new Exception( "Error inserting into database");
       }
-      try {
-        $stmt->execute();
-        throw new Exception("Error inserting into database");
-      } 
-      finally {
-        $this->pdo = null;
-      }
+      return $this->pdo->lastInsertId();
+    } 
+    finally {
+      $this->pdo = null;
     }
   }
+
+  public function readOneRow($sql, $params){
+    self::connectToDB();
+    $stmt = $this-> pdo -> prepare($sql);
+    foreach ($params as $key => $content){;
+      $stmt->bindValue($key, $content);
+    }
+    try {
+      $stmt -> setFetchMode(PDO::FETCH_OBJ);;
+      $stmt -> execute();
+      $row = $stmt ->fetch();
+      return $row;
+      //throw new Exception( "Error reading from database");
+    }   catch (PDOException $e) {
+      // Log the error or perform additional handling as needed
+      $this->pdo = null; // Ensure to close the connection before rethrowing
+      throw  new Exception( "Error reading from database", $e); ;
+    }
+    finally {
+      $this->pdo = null;
+    }
+  }
+
+  public function readMultipleRows($sql, $params){
+    //wip
+    self::connectToDB();
+    $stmt = $this-> pdo -> prepare($sql);
+    foreach ($params as $key => $content){;
+      $stmt->bindValue($key, $content);
+    }
+    try {
+      $stmt -> setFetchMode(PDO::FETCH_OBJ);;
+      $stmt -> execute();
+      $row = $stmt -> fetch();
+      return $row;
+      //throw new Exception( "Error reading from database");
+    } catch (PDOException $e) {
+      throw  new Exception( "Error reading from database", $e); ;
+    }
+    finally {
+      $this->pdo = null;
+    }
+  }
+
+  public function updateRow($sql, $params){
+    self::connectToDB();
+    $stmt = $this-> pdo -> prepare($sql);
+    foreach ($params as $key => $content){;
+      $stmt->bindValue($key, $content);
+    }
+    try {
+      $stmt->execute();
+    } catch (PDOException $e) {
+        throw  new Exception( "Error updating database", $e); ;
+      }
+    finally {
+      $this->pdo = null;
+    }
+  }
+
+  public function deleteRow($sql, $params){
+    self::connectToDB();
+    $stmt = $this-> pdo -> prepare($sql);
+    foreach ($params as $key => $content){;
+      $stmt->bindValue($key, $content);
+    }
+    try {
+      $stmt->execute();
+    } catch (PDOException $e) {
+        throw  new Exception( "Error deleting row in database", $e); ;
+      }
+    finally {
+      $this->pdo = null;
+    }
+  }
+}
 ?>
