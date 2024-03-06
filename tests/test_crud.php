@@ -3,7 +3,7 @@ include_once "../models/CRUD.php";
 $crud = new Crud();
 //createUser($crud, 'testificate2134224213@gmail.com', 'john', 'theFirstOfMany');
 //readUserByEmail($crud, 'testificate@gmail.com');
-//readAllProducts($crud);
+readAllProducts($crud);
 //updateUserPassword($crud, 'testificate@gmail.com', 'ThisIsAnUpdatedPassword');
 //deleteUser($crud, 'testificate2134224213@gmail.com');
 
@@ -16,7 +16,6 @@ function createUser($crud, $email, $user, $password){
   } catch (PDOException $e) {
     var_dump($e->getMessage());
   }
-  var_dump($id);
 }
 
 function readUserByEmail($crud, $email){
@@ -27,7 +26,6 @@ function readUserByEmail($crud, $email){
   } catch (PDOException $e) {
     var_dump($e->getMessage());
   }
-  var_dump($data);
 }
 
 // this is for the shop
@@ -39,6 +37,7 @@ function readAllProducts($crud, $params=array()){
   } catch (PDOException $e) {
     var_dump($e->getMessage());
   }
+  var_dump($data);
 }
 
 function updateUserPassword($crud, $email, $password){

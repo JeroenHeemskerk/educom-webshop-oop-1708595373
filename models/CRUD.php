@@ -50,8 +50,6 @@
       return $row;
       //throw new Exception( "Error reading from database");
     }   catch (PDOException $e) {
-      // Log the error or perform additional handling as needed
-      $this->pdo = null; // Ensure to close the connection before rethrowing
       throw  new Exception( "Error reading from database", $e); ;
     }
     finally {
@@ -69,7 +67,7 @@
     try {
       $stmt -> setFetchMode(PDO::FETCH_OBJ);;
       $stmt -> execute();
-      $row = $stmt -> fetch();
+      $row = $stmt -> fetchAll();
       return $row;
       //throw new Exception( "Error reading from database");
     } catch (PDOException $e) {
