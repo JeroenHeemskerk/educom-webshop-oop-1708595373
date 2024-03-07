@@ -54,7 +54,12 @@ class Validators{
               if (empty($inputs[$key] == false)){ 
                   $error[$key] = self::checkEmail($key, $inputs, $error);
               }
-                break;
+              break;
+            case "matchWith":
+              if ($inputs[$key] != $inputs[$parts[1]]){
+                $error[$key] = "* wachtworden zijn niet hetzelfde";
+              }
+              break;
         }
     }
     if(empty($error[$key])){

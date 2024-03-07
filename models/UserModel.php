@@ -53,9 +53,8 @@ class UserModel extends PageModel{
         break;
       case 'password':
         $this->meta = array(
-          
           'password' => array('label' => 'Oud wachtwoord', 'type' => 'text', 'validations' => array('notEmpty')), 
-          'newPass' => array('label' => 'Nieuw wachtwoord', 'type' => 'text', 'validations' => array('notEmpty')), 
+          'newPass' => array('label' => 'Nieuw wachtwoord', 'type' => 'text', 'validations' => array('notEmpty', 'matchWith:newRepeatPass')), 
           'newRepeatPass' => array('label' => 'Herhaal nieuw wachtwoord', 'type' => 'text', 'validations' => array('notEmpty'))
         );
       break;
