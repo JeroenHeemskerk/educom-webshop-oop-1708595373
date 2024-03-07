@@ -93,8 +93,6 @@ class Validators{
     if (empty($data[$key])) {
      $err[$key] = $err[$key]."Dit veld moet ingevuld worden"; 
     }
-
-
     return $err[$key];
   }
   
