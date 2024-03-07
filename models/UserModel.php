@@ -52,7 +52,12 @@ class UserModel extends PageModel{
         );
         break;
       case 'password':
-      $this->meta = array('password' => '', 'newPass' => '', 'newRepeatPass' => '');
+        $this->meta = array(
+          
+          'password' => array('label' => 'Oud wachtwoord', 'type' => 'text', 'validations' => array('notEmpty')), 
+          'newPass' => array('label' => 'Nieuw wachtwoord', 'type' => 'text', 'validations' => array('notEmpty')), 
+          'newRepeatPass' => array('label' => 'Herhaal nieuw wachtwoord', 'type' => 'text', 'validations' => array('notEmpty'))
+        );
       break;
     }
   }
@@ -135,9 +140,8 @@ class UserModel extends PageModel{
     $email = $this->sessionManager->getLoggedInUser()['email'];
     $this->authUser($email);
     if($this->valid){
-      require_once('db_Repository.php');
-      $password = self::passwordEncrypt( $this->meta['newPass']);
-      updateUserPasswordDB($email, $password);
+      $password = self::passwordEncrypt( $this->values['newPass']);
+      $this->crud->updateUserPassword($email, $password);
       $this->errors['password'] = 'wachtwoord geupdate';
     } else {
       $this->errors['password'] = 'wachtwoord incorrect';

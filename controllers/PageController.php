@@ -78,6 +78,7 @@ class PageController{
         $this->model->getMeta();
         $this->model->getInputs();
         $this->model->getErrors();
+        
         if($this->model->errors['valid']){
           $this->model->doUpdatePassword();
         }

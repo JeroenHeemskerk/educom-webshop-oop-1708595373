@@ -38,7 +38,6 @@ abstract class FormDoc Extends BasicDoc{
     $content = $this->data->meta[$id];
     $value = $this->data->values[$id];
     $error = $this->data->errors[$id];
-
     $line = $this->showInputSectionStart($id, $content['label']);
     if ($content['type'] == 'text'){ 
       $line = $line . '<input type = '.$content['type'].' name='.$id.' value= "'.$value.'" id="'.$id.'"' ;
