@@ -7,7 +7,8 @@ class DetailDoc Extends ProductDoc{
   }
 
   protected function showHeaderContent(){
-    echo $this->data->products[0]['name'];
+
+    echo $this->data->products[0]->name;
   }
 
   protected function showContent(){
@@ -16,9 +17,9 @@ class DetailDoc Extends ProductDoc{
     $this -> showProductImage($item, array('width' => 500, 'height' => 500));
     //$this -> showProductContent('detail', array('width' => 500, 'height' => 500));
     $this -> startDivSection('text');
-    $this -> showSpanText('', 'name', $item);
-    $this -> showSpanText('', 'description', $item);
-    $this -> showSpanText('price', 'price', $item);
+    $this -> showSpanText('',  $item->name);
+    $this -> showSpanText('',  $item->description);
+    $this -> showSpanText('price', $item->price);
     $this -> showAddToButton('detail', $item);
 
     // add to cart button

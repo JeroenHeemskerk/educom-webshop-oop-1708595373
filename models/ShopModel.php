@@ -66,8 +66,9 @@ class ShopModel extends PageModel{
 
   public function getDetailData(){
     $parts = explode('-', $this->page, 3);
+    $id = array(1 => $parts[2]);
     try {
-      $this->products = getItemsFromDB('name, price, description, image, id', 'products', 'id='.$parts[2]);
+      $this->products = $this->crud->readProductsByIds($id);
       }
       catch (exception $e) {$this-> genericErr = 'Kon database niet bereiken';
         $this->logErrors($e->getMessage());}
@@ -76,10 +77,11 @@ class ShopModel extends PageModel{
   public function getCartLines(){
     foreach ($this->sessionManager->getBasket() as $id => $amount){
       try{
-        $item = getItemsFromDB('name, price, image, id', 'products', 'id='.$id);
+        $query = array(1 => $id);
+        $item = $this->crud->readProductsByIds($query);
         $this->cartLines[$id] = $item;
         $this->cartLines[$id]['count'] = $amount;
-        $this->cartTotal += $amount * $this->cartLines[$id][0]['price'];
+        $this->cartTotal += $amount * $this->cartLines[$id][0]->price;
         } catch (exception $e) {$this->genericErr = 'Database momenteel niet bereikbaar';
         logErrors($e->getMessage());}
     }

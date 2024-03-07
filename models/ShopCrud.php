@@ -19,7 +19,7 @@ class ShopCrud{
 
 
   public function readProductsByIds($params){
-    $sql ='SELECT id, image, price, name
+    $sql ='SELECT *
       FROM products WHERE ';
     foreach ($params as $x) {
         $sql = $sql . 'id = ? OR ';
