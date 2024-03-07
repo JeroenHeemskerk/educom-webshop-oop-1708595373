@@ -10,11 +10,11 @@ class ShopCrud{
     $sql ='SELECT id, image, price, name
       FROM products'; 
      try {
-      $data = $crud->readMultipleRows($sql, $params);
+      $data = $this->crud->readMultipleRows($sql, $params);
     } catch (PDOException $e) {
       var_dump($e->getMessage());
     }
-    var_dump($data);
+    return ($data);
   }
 
 

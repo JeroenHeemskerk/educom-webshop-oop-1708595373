@@ -14,6 +14,7 @@ class CrudFactory{
           return new userCrud($this->crud);
         break;
       case 'shop':
+        return new shopCrud($this->crud);
         break;
     }
   }

@@ -48,7 +48,7 @@ class PageController{
         $this->model->getDetailData();
         break;
       case 'cart':
-        $this->model = new ShopModel($this->model);
+        $this->model = $this->modelFactory->createModel('shop', $this->model);
         $this->model->handleCartActions();
         $this->model->getCartLines();
         break;

@@ -36,7 +36,7 @@ class ShopModel extends PageModel{
 
   public function getWebShopData(){
     try {
-      $this->products = getItemsFromDB('id, name, price, image');
+      $this->products = $this->crud->readAllProducts();
       }
       catch (exception $e) {$this-> genericErr = 'Kon database niet bereiken';
         $this->logErrors($e->getMessage());}

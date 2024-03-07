@@ -24,10 +24,10 @@ abstract class ProductDoc Extends BasicDoc{
     $action = 'placeOrder';
     $text = 'Plaats bestelling';
     $id = 'id';
-  } else{
+  } else {
     $action = 'addToCart';
     $text = 'Toevoegen aan bestelling';
-    $id = $item['id'];
+    $id = $item->id;
   }
   echo '';
     if (isset($_SESSION['user'])){
@@ -46,7 +46,7 @@ abstract class ProductDoc Extends BasicDoc{
     item array 
     imagesize array('width', 'height')
     */
-      echo '<img src="images\\'.$item['image'].'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].'px;">';
+      echo '<img src="images\\'.$item->image.'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].'px;">';
 
   }
 
@@ -55,7 +55,7 @@ abstract class ProductDoc Extends BasicDoc{
     item array 
     imagesize array('width', 'height')
     */
-    echo  '<a class=product_image  href="index.php?page=product-'.$item['name'].'-'.$item['id'].'">';
+    echo  '<a class=product_image  href="index.php?page=product-'.$item->name.'-'.$item->id.'">';
     $this->showProductImage($item, $imagesize);
     echo '</a>';
   }
@@ -63,8 +63,8 @@ abstract class ProductDoc Extends BasicDoc{
   private function showProductName($item){
     // item array
     echo '<h3 class=product_name>
-        <a class=product_text href="index.php?page=product-'.$item['name'].'-'.$item['id'].'">
-        <span>'.$item['name'].' </span>
+        <a class=product_text href="index.php?page=product-'.$item->name.'-'.$item->id.'">
+        <span>'.$item->name.' </span>
         </a>
       </h3>';
   }
@@ -92,7 +92,7 @@ abstract class ProductDoc Extends BasicDoc{
       if ($page == 'webshop'){
       echo '
         <div class=product_price>
-        <span class=price>&euro;'.$item['price'].'  </span>
+        <span class=price>&euro;'.$item->price.'  </span>
         </div>';
         $this-> showAddToButton($page, $item);
       }
