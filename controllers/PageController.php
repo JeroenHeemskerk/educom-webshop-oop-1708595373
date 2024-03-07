@@ -68,7 +68,6 @@ class PageController{
         $this->model->getInputs();
         $this->model->getErrors();
         if($this->model->errors['valid']){
-          
           $this->model->doRegisterUser();
         }
         break;

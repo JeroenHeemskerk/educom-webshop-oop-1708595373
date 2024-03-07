@@ -48,4 +48,36 @@ class ShopCrud{
     }
     return ($data);
   }
+
+  public function createOrder($id, $basket){
+    $orderId = self::createOrderInOrder($id);
+    self::createOrderInOrderContent($orderId, $basket);
+  }
+
+  private function createOrderInOrder($id){
+    $date = date('Y-m-d');
+    $sql = 'INSERT INTO orders (user_id, date) VALUES (:id, :date)';
+    $params = array('id' => $id, 'date' => $date);
+    try {
+      return $this->crud->createRow($sql, $params);
+    } catch (PDOException $e) {
+      // gotta change this to rethrowing the error message
+      // left overs from testing
+      var_dump($e->getMessage());
+    }
+  }
+
+  private function createOrderInOrderContent($orderId, $basket){
+    $params = array();
+    $sql = 'INSERT INTO orders_content (order_id, product_id, product_count) 
+    VALUES (:orderId, :productId, :productCount)';
+    foreach ($basket as $key => $value){
+      $params = array('orderId' => $orderId, 'productId' => $key, 'productCount' => $value);
+      try {
+      $this->crud->createRow($sql, $params);
+      } catch (PDOException $e) {
+        var_dump($e->getMessage());
+      }
+    }
+  }
 }
