@@ -146,7 +146,6 @@ class UserModel extends PageModel{
   }
 
   public function doRegisterUser(){
-    require_once('db_Repository.php');
     $this->values['email'];
     $this->values['user'];
     $this->values['password'];
@@ -155,13 +154,14 @@ class UserModel extends PageModel{
       $this->setPage('home');
     } else {
       $this->errors['email'] = 'Deze email is al geregisteerd';
+      
     }
   }
 
   private function saveUser(){
     require_once('db_Repository.php');
     $password = self::passwordEncrypt($this->values['password']);
-    saveUserDB($this->values['email'], $this->values['user'], $password);
+    //saveUserDB($this->values['email'], $this->values['user'], $password);
     
   }
 

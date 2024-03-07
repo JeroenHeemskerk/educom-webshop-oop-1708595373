@@ -1,15 +1,13 @@
 <?php
-require_once('models/PageModel.php');
-require_once('models/UserModel.php');
-require_once('models/ShopModel.php');
+
 
 class PageController{
   private $model;
 
   public function __construct($modelFactory){
-  // its not the $modelFactory yet but it will be in a later step
     $this->modelFactory = $modelFactory;
-    $this->model = new PageModel(NULL);
+    $this->model = $this->modelFactory->createModel('page');
+    
   }
 
   public function handleRequest(){
@@ -27,11 +25,9 @@ class PageController{
   }
 
   private function processRequest(){
-
-
     switch($this->model->page){  
       case 'contact':
-        $this->model = new UserModel($this->model);
+        $this->model = $this->modelFactory->createModel('user', $this->model);
         $this->model->getMeta();
         $this->model->getInputs();
         $this->model->getErrors();
@@ -40,16 +36,15 @@ class PageController{
         }
         break;
       case 'webshop':
-        $this->model = new ShopModel($this->model);
+        $this->model = $this->modelFactory->createModel('shop', $this->model);
         $this->model->getWebShopData();
         break;
       case 'top':
-        $this->model = new ShopModel($this->model);
+        $this->model = $this->modelFactory->createModel('shop', $this->model);
         $this->model->getTopFiveData();
-        
         break;
       case strstr($this->model->page, 'product'):
-        $this->model = new ShopModel($this->model);
+        $this->model = $this->modelFactory->createModel('shop', $this->model);
         $this->model->getDetailData();
         break;
       case 'cart':
@@ -58,7 +53,7 @@ class PageController{
         $this->model->getCartLines();
         break;
       case 'login':
-        $this->model = new UserModel($this->model);
+        $this->model = $this->modelFactory->createModel('user', $this->model);
         $this->model->validateLogin();
         if($this->model->valid){
           //otherwise a correct password stays afloat in the data
@@ -68,17 +63,18 @@ class PageController{
         }
         break;
       case 'register':{
-        $this->model = new UserModel($this->model);
+        $this->model = $this->modelFactory->createModel('user', $this->model);
         $this->model->getMeta();
         $this->model->getInputs();
         $this->model->getErrors();
-        if($this->model->errors['valid']){
+        //if($this->model->errors['valid']){
+          
           $this->model->doRegisterUser();
-        }
+        //}
         break;
       }
       case 'password':
-        $this->model = new UserModel($this->model);
+        $this->model = $this->modelFactory->createModel('user', $this->model);
         $this->model->getMeta();
         $this->model->getInputs();
         $this->model->getErrors();
@@ -87,7 +83,7 @@ class PageController{
         }
         break;
       case'logout':
-        $this->model = new UserModel($this->model);
+        $this->model = $this->modelFactory->createModel('user', $this->model);
         $this->model->doLogoutUser();
         $this->model->setPage('home');
         break;

@@ -2,8 +2,8 @@
 class UserCrud{
   private $crud;
 
-  public function __construct(crud $crud){
-    $this -> crud = $crud
+  public function __construct($crud){
+    $this -> crud = $crud;
   }
 
   private function createUser($email, $user, $password){
@@ -13,6 +13,8 @@ class UserCrud{
   try {
     $id = $this->crud->createRow($sql, $params);
   } catch (PDOException $e) {
+    // gotta change this to rethrowing the error message
+    // left overs from testing
     var_dump($e->getMessage());
   }
   }
@@ -29,7 +31,7 @@ class UserCrud{
     }
   }
 
-  private function readUserByEmail($email){
+  public function readUserByEmail($email){
     $sql = 'SELECT * FROM users WHERE email=:email';
     $params = array('email' => $email);
     try {
