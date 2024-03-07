@@ -44,19 +44,19 @@ class ShopModel extends PageModel{
 
   public function getTopFiveData(){
     try {
-      $this->popular = getTopItemsDB();
+      $this->popular = $this->crud->readTop5Products();
       }
       catch (exception $e) {$this-> genericErr = 'Kon database niet bereiken';
         $this->logErrors($e->getMessage());}
      // of the popular I can use the product id to fetch the required information
-     $requestIds = '';
+     $requestIds = array();
+      
       foreach ($this->popular as $key => $value){
-        $requestIds = $requestIds. 'id = ' . $value['product_id']. ' OR ';
-        
+        $requestIds[$key + 1] = $value->product_id;
       }
-      $requestIds = rtrim($requestIds, ' OR id = OR ' );
+
       try {
-        $this->products = getItemsFromDB('id, name, price, image', 'products', $requestIds);
+        $this->products = $this->crud->readProductsByIds($requestIds);
         }
         catch (exception $e) {$this-> genericErr = 'Kon database niet bereiken';
           $this->logErrors($e->getMessage());}

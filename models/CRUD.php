@@ -61,6 +61,7 @@
     //wip
     self::connectToDB();
     $stmt = $this-> pdo -> prepare($sql);
+    //var_dump($sql);
     foreach ($params as $key => $content){;
       $stmt->bindValue($key, $content);
     }
@@ -71,7 +72,7 @@
       return $row;
       //throw new Exception( "Error reading from database");
     } catch (PDOException $e) {
-      throw  new Exception( "Error reading from database", $e); ;
+      throw  new Exception($e); ;
     }
     finally {
       $this->pdo = null;

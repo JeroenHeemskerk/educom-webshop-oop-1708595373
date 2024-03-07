@@ -13,8 +13,6 @@ abstract class ProductDoc Extends BasicDoc{
     }  
   }
 
-
-
   protected function showAddToButton($page, $item=''){
   /* 
   page string

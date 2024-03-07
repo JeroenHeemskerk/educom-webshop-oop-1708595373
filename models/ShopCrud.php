@@ -9,10 +9,10 @@ class ShopCrud{
   public function readAllProducts($params=array()){
     $sql ='SELECT id, image, price, name
       FROM products'; 
-     try {
+    try {
       $data = $this->crud->readMultipleRows($sql, $params);
     } catch (PDOException $e) {
-      var_dump($e->getMessage());
+      //var_dump($e->getMessage());
     }
     return ($data);
   }
@@ -28,7 +28,24 @@ class ShopCrud{
     try {
       $data = $this->crud->readMultipleRows($sql, $params);
     } catch (PDOException $e) {
-      var_dump($e->getMessage());
+      //var_dump($e->getMessage());
     }
+    return ($data);
+  }
+
+  public function readTop5Products(){
+    $params = array();
+    $sql = 
+    "SELECT orders_content.product_id, sum(orders_content.product_count) AS 'product_counts' 
+    FROM orders LEFT JOIN orders_content on orders_content.order_id = orders.id
+    WHERE date BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now() 
+    GROUP BY orders_content.product_id 
+    ORDER BY product_counts DESC LIMIT 5";
+    try {
+      $data = $this->crud->readMultipleRows($sql, $params);
+    } catch (PDOException $e) {
+      //var_dump($e->getMessage());
+    }
+    return ($data);
   }
 }
