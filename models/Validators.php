@@ -85,8 +85,6 @@ class Validators{
       if ($parts[1] == $data['communication'])
       $err[$key] = self::checkFieldContent($key, $data, $err);
     }
-    // the second condition is group
-    // how'd this work? I think by checking if anything else in the group is filled
     return $err[$key];
   }
 
