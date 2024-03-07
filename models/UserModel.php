@@ -99,16 +99,15 @@ class UserModel extends PageModel{
   }
 
   private function authUser($email){
-    require_once('db_Repository.php');
-    $userInfo = findUserByEmailDB($email);
+    $userInfo = $this->crud->readUserByEmail($email);
     //userInfo is only null if there was an error in the database
     // otherwise its an array
     if (!isset($userInfo)){
       return $userInfo;}
     //check if password overlaps with the password in $userInfo
-    if ($this->passwordDecrypt($this->values['password'], $userInfo['password'])){ 
-      $this->values['name'] = $userInfo['user'];
-      $this->userId = $userInfo['id'];
+    if ($this->passwordDecrypt($this->values['password'], $userInfo->password)){ 
+      $this->values['name'] = $userInfo->user;
+      $this->userId = $userInfo->id;
       $this->valid = true;
     } else {
       $this->errors['email'] = '*Email of wachtwoord is incorrect';
@@ -149,19 +148,17 @@ class UserModel extends PageModel{
     $this->values['email'];
     $this->values['user'];
     $this->values['password'];
-    if(!findUserByEmailDB($this->values['email'])){
+    if(!$this->crud->readUserByEmail($this->values['email'])){
       self::saveUser();
       $this->setPage('home');
     } else {
       $this->errors['email'] = 'Deze email is al geregisteerd';
-      
     }
   }
 
   private function saveUser(){
     $password = self::passwordEncrypt($this->values['password']);
     $this->crud->createUser($this->values['email'], $this->values['user'], $password);
-    
   }
 
 }
