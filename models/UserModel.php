@@ -159,9 +159,8 @@ class UserModel extends PageModel{
   }
 
   private function saveUser(){
-    require_once('db_Repository.php');
     $password = self::passwordEncrypt($this->values['password']);
-    //saveUserDB($this->values['email'], $this->values['user'], $password);
+    $this->crud->createUser($this->values['email'], $this->values['user'], $password);
     
   }
 

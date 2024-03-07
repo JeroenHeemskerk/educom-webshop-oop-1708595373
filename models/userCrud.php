@@ -6,7 +6,7 @@ class UserCrud{
     $this -> crud = $crud;
   }
 
-  private function createUser($email, $user, $password){
+  public function createUser($email, $user, $password){
     $sql = "INSERT INTO users (email, user, password)
   VALUES (:email, :user, :password)";
   $params = array('email' => $email, 'user'=>$user, 'password'=>$password);
@@ -19,7 +19,7 @@ class UserCrud{
   }
   }
 
-  private function updateUserPassword($email, $password){
+  public function updateUserPassword($email, $password){
     $sql = 'UPDATE users 
     SET password=:password
     WHERE email=:email';
