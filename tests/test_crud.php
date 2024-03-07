@@ -3,9 +3,10 @@ include_once "../models/CRUD.php";
 $crud = new Crud();
 //createUser($crud, 'testificate2134224213@gmail.com', 'john', 'theFirstOfMany');
 //readUserByEmail($crud, 'testificate@gmail.com');
-readAllProducts($crud);
+//readAllProducts($crud);
 //updateUserPassword($crud, 'testificate@gmail.com', 'ThisIsAnUpdatedPassword');
 //deleteUser($crud, 'testificate2134224213@gmail.com');
+readProductsByIds($crud, array('1' => '1', '2' =>  '3', '3' => '5'));
 
 function createUser($crud, $email, $user, $password){
   $sql = "INSERT INTO users (email, user, password)
@@ -31,7 +32,7 @@ function readUserByEmail($crud, $email){
 // this is for the shop
 function readAllProducts($crud, $params=array()){
   $sql ='SELECT id, image, price, name
-    FROM products '; 
+    FROM products'; 
    try {
     $data = $crud->readMultipleRows($sql, $params);
   } catch (PDOException $e) {
@@ -39,6 +40,22 @@ function readAllProducts($crud, $params=array()){
   }
   var_dump($data);
 }
+
+function readProductsByIds($crud, $params){
+  $sql ='SELECT id, image, price, name
+    FROM products WHERE ';
+  foreach ($params as $x) {
+      $sql = $sql . 'id = ? OR ';
+    }
+  $sql = rtrim($sql, ' OR');
+  try {
+    $data = $crud->readMultipleRows($sql, $params);
+  } catch (PDOException $e) {
+    var_dump($e->getMessage());
+  }
+  var_dump($data);
+}
+
 
 function updateUserPassword($crud, $email, $password){
   $sql = 'UPDATE users 
@@ -50,6 +67,7 @@ function updateUserPassword($crud, $email, $password){
   } catch (PDOException $e) {
     var_dump($e->getMessage());
   }
+  
 }
 
 function deleteUser($crud, $email){

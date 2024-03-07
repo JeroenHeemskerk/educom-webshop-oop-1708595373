@@ -6,7 +6,9 @@ require_once('models/ShopModel.php');
 class PageController{
   private $model;
 
-  public function __construct() {
+  public function __construct($modelFactory){
+  // its not the $modelFactory yet but it will be in a later step
+    $this->modelFactory = $modelFactory;
     $this->model = new PageModel(NULL);
   }
 

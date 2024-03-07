@@ -1,8 +1,10 @@
 <?php
 session_start();
 require_once('controllers/PageController.php');
+require_once("models/CRUD.php");
 
-$controller = new PageController();
+$crud = new Crud();
+$controller = new PageController($crud);
 $controller -> handleRequest();
 
 /*
