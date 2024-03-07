@@ -63,7 +63,7 @@ class UserModel extends PageModel{
 
   public function getInputs(){
     // a post request on a form that hasn't been filled will just return blanks
-    foreach ($this->meta as $key => $value){
+    foreach (array_keys($this->meta) as $key){
       $this->values[$key] = $this->getPostVar($key);
     }
   }
@@ -79,7 +79,7 @@ class UserModel extends PageModel{
     }else {
       $this->errors = array('password' => '*', 'newPass' => '*', 'newRepeatPass' => '*');
     }
-    foreach ($this->meta as $key => $value){
+    foreach (array_keys($this->meta) as $key){
       if(!isset($this->errors[$key])){
         $this->errors[$key] = '';
       }
