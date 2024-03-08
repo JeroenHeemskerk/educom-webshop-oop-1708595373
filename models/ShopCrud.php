@@ -34,13 +34,19 @@ class ShopCrud{
   }
 
   public function readTop5Products(){
+    // single query to get the top 5 ordered products & their info
     $params = array();
     $sql = 
-    "SELECT orders_content.product_id, sum(orders_content.product_count) AS 'product_counts' 
-    FROM orders LEFT JOIN orders_content on orders_content.order_id = orders.id
-    WHERE date BETWEEN date_sub(now(),INTERVAL 1 WEEK) and now() 
-    GROUP BY orders_content.product_id 
-    ORDER BY product_counts DESC LIMIT 5";
+    "SELECT *
+    FROM products
+    WHERE id IN (
+        SELECT orders_content.product_id
+        FROM orders
+        LEFT JOIN orders_content ON orders_content.order_id = orders.id
+        WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 1 WEEK) AND NOW()
+        GROUP BY orders_content.product_id
+        ORDER BY SUM(orders_content.product_count) DESC
+    ) LIMIT 5;";
     try {
       $data = $this->crud->readMultipleRows($sql, $params);
     } catch (PDOException $e) {
