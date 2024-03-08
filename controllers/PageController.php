@@ -31,7 +31,7 @@ class PageController{
         $this->model->getMeta();
         $this->model->getInputs();
         $this->model->getErrors();
-        if(isset($this->model->errors['page'])){
+        if(isset($this->model->errors['valid'])){
           $this->model->setPage('thank');
         }
         break;
