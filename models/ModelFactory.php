@@ -3,8 +3,9 @@
   require_once('models/UserModel.php');
   require_once('models/ShopModel.php');
 class ModelFactory{
-  
   private $crudFactory;
+  private $name;
+  private $model;
 
   public function __construct($crudFactory){
     $this->crudFactory = $crudFactory;

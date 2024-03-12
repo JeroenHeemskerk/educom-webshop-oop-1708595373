@@ -1,6 +1,6 @@
 <?php
 require_once('PageModel.php');
-require_once('db_repository.php');
+//require_once('db_repository.php');
 
 class ShopModel extends PageModel{
   public $products = array();

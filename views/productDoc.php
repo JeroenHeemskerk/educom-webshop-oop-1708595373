@@ -44,7 +44,7 @@ abstract class ProductDoc Extends BasicDoc{
     item array 
     imagesize array('width', 'height')
     */
-      echo '<img src="images\\'.$item->image.'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].'px;">';
+      echo '<img src="Images\\'.$item->image.'"  style="width:'.$imagesize['width'].'px;height:'.$imagesize['height'].'px;">';
 
   }
 

@@ -14,5 +14,8 @@ services:
       - data:/var/lib/mysql                        # use /var/lib/mysql to store the data
       - ./database:/docker-entrypoint-initdb.d  
 
-volumes:
-  data:
+  webshop_site:
+    image: "webshop"
+    ports:
+      - "8081:80"
+

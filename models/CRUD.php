@@ -4,12 +4,12 @@
     private $pdo;
 
     private function connectToDB(){
-      $servername = "localhost";
+      $servername = "webshop_db";
       $username = "milan_lucas_web_shop";
       $password = "cNLN0whG56mamGYq";
       $dbName = 'milan_web_shop_users';
       try {
-        $this-> pdo = new PDO("mysql:host=$servername;port=3310;dbname=$dbName", $username, $password);
+        $this-> pdo = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
         $this-> pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
          if (!$this->pdo) {
         throw new Exception("Cannot connect to database");

@@ -12,7 +12,7 @@ class ShopCrud{
     try {
       $data = $this->crud->readMultipleRows($sql, $params);
     } catch (PDOException $e) {
-      //var_dump($e->getMessage());
+      var_dump($e->getMessage());
     }
     return ($data);
   }

@@ -2,6 +2,7 @@
 
 
 class PageController{
+  private $modelFactory;
   private $model;
 
   public function __construct($modelFactory){
