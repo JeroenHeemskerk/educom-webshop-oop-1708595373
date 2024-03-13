@@ -4,10 +4,10 @@
     private $pdo;
 
     private function connectToDB(){
-      $servername = "webshop_db";
-      $username = "milan_lucas_web_shop";
-      $password = "cNLN0whG56mamGYq";
-      $dbName = 'milan_web_shop_users';
+      $servername = getenv("MYSQL_SERVER");
+      $username = getenv("MYSQL_USER");
+      $password = getenv("MYSQL_PASSWORD");
+      $dbName = getenv('MYSQL_DATABASE');
       try {
         $this-> pdo = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
         $this-> pdo ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
